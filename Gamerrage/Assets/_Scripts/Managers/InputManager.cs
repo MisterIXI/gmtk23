@@ -79,9 +79,9 @@ public class InputManager : MonoBehaviour
 
     private void UnSubscribeToInput()
     {
-        _playerInput.actions["MouseMove"].started -= OnMousePosInput;
-        _playerInput.actions["MouseMove"].performed -= OnMousePosInput;
-        _playerInput.actions["MouseMove"].canceled -= OnMousePosInput;
+        _playerInput.actions["MousePos"].started -= OnMousePosInput;
+        _playerInput.actions["MousePos"].performed -= OnMousePosInput;
+        _playerInput.actions["MousePos"].canceled -= OnMousePosInput;
 
         _playerInput.actions["LMB"].started -= OnLMBInput;
         _playerInput.actions["LMB"].performed -= OnLMBInput;
