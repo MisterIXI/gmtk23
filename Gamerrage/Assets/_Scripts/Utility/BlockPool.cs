@@ -51,9 +51,8 @@ public class BlockPool : MonoBehaviour
             foreach (BlockType type in prefabs.Keys)
             {
                 // add block for each placeable Blocktype
-                if ((int)type < 1)
-                    continue;
-                addBlock(type);
+                if ((int)type > 0)
+                    addBlock(type);
             }
         }
     }
@@ -63,6 +62,7 @@ public class BlockPool : MonoBehaviour
         var newObject = Instantiate(prefabs[type]);
         newObject.gameObject.SetActive(false);
         pool[type].Add(newObject);
+        newObject.transform.parent = transform;
     }
 
     public BaseBlock PlaceBlockAt(BlockType type, Vector3 pos)
@@ -103,7 +103,17 @@ public class BlockPool : MonoBehaviour
         }
         block.transform.position = pos;
         block.gameObject.SetActive(true);
+        block.transform.parent = null;
         return block;
+    }
+
+    public void ReturnBlock(BlockType type, BaseBlock block)
+    {
+        if (type == 0 || block == null)
+            return;
+        block.gameObject.SetActive(false);
+        block.transform.parent = transform;
+        pool[type].Add(block);
     }
 
     private void OnDestroy()

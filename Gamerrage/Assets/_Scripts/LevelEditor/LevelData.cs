@@ -9,6 +9,7 @@ public class LevelData
     public LevelData(Vector2Int size)
     {
         blockdata = new int[size.x, size.y];
+        blocks = new BaseBlock[size.x, size.y];
     }
     public int sizeX => blockdata.GetLength(0);
     public int sizeY => blockdata.GetLength(1);
@@ -23,5 +24,6 @@ public class LevelData
         get { return (BlockType)blockdata[x, y]; }
         set { blockdata[x, y] = (int)value; }
     }
-    public int[,] blockdata;
+    private int[,] blockdata;
+    public BaseBlock[,] blocks { get; private set; }
 }

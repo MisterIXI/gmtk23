@@ -3,17 +3,18 @@ using UnityEngine;
 public class SettingsHolder : MonoBehaviour
 {
     [field: SerializeField] public UtilitySettings UtilitySettings { get; private set; }
+    private static SettingsHolder _instance;
     public static SettingsHolder Instance
     {
         get
         {
-            if (Instance == null)
-                Instance = GameObject.FindObjectOfType<SettingsHolder>();
-            return Instance;
+            if (_instance == null)
+                _instance = GameObject.FindObjectOfType<SettingsHolder>();
+            return _instance;
         }
         set
         {
-            Instance = value;
+            _instance = value;
         }
     }
 
