@@ -7,10 +7,9 @@ using UnityEngine;
 public class BlockPool : MonoBehaviour
 {
     public static BlockPool Instance;
+    private Transform activeBlocksParent;
     private UtilitySettings utilitySettings;
     private Dictionary<BlockType, List<BaseBlock>> pool;
-    private PlayerBlock playerBlock;
-    private GoalBlock goalBlock;
     private Dictionary<BlockType, BaseBlock> prefabs;
     private void Awake()
     {
@@ -21,6 +20,8 @@ public class BlockPool : MonoBehaviour
         }
         Instance = this;
         utilitySettings = SettingsHolder.Instance.UtilitySettings;
+        activeBlocksParent = new GameObject("LevelBlocksParent").transform;
+        activeBlocksParent.parent = transform.parent;
         BuildPrefabDict();
         InitPool();
     }
@@ -67,50 +68,31 @@ public class BlockPool : MonoBehaviour
 
     public BaseBlock PlaceBlockAt(BlockType type, Vector3 pos)
     {
+        if (type == BlockType.Empty)
+            return null;
         BaseBlock block;
-        if (type == BlockType.Goal)
-        {
-            if (goalBlock == null)
-            {
-                goalBlock = (GoalBlock)pool[type].First();
-                pool[type].RemoveAt(0);
-                block = goalBlock;
-            }
-            else
-            {
-                block = playerBlock;
-            }
-        }
-        else if (type == BlockType.Player)
-        {
-            if (playerBlock == null)
-            {
-                playerBlock = (PlayerBlock)pool[type].First();
-                pool[type].RemoveAt(0);
-                block = playerBlock;
-            }
-            else
-            {
-                block = playerBlock;
-            }
-        }
-        else
-        {
-            if (pool[type].Count < 1)
-                addBlock(type);
-            block = pool[type].First();
-            pool[type].RemoveAt(0);
-        }
+        if (pool[type].Count < 1)
+            addBlock(type);
+        block = pool[type].First();
+        pool[type].RemoveAt(0);
+        Vector2Int coord = LevelCreator.PosToCoord(pos);
         block.transform.position = pos;
         block.gameObject.SetActive(true);
-        block.transform.parent = null;
+        block.name = $"[{coord.x},{coord.y}]{type}";
+        block.transform.parent = activeBlocksParent;
         return block;
+    }
+
+    public void ReturnBlock(LevelData levelData, Vector2Int coord)
+    {
+        levelData.SetBlock(coord, BlockType.Empty);
     }
 
     public void ReturnBlock(BlockType type, BaseBlock block)
     {
-        if (type == 0 || block == null)
+        if (type == BlockType.Empty || block == null)
             return;
+        block.SetPreviewState(false);
         block.gameObject.SetActive(false);
         block.transform.parent = transform;
         pool[type].Add(block);
@@ -120,5 +102,7 @@ public class BlockPool : MonoBehaviour
     {
         if (Instance == this)
             Instance = null;
+        if (activeBlocksParent != null)
+            Destroy(activeBlocksParent.gameObject);
     }
 }
