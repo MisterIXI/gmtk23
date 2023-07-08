@@ -17,10 +17,6 @@ public class LevelCreator : MonoBehaviour
     }
     public static Vector3 CoordToPos(Vector2Int coord) => new Vector3(coord.x + 0.5f, coord.y + 0.5f, 0);
     public static Vector2Int PosToCoord(Vector3 pos) => new Vector2Int((int)pos.x, (int)pos.y);
-    public BaseBlock PlaceBlock(Vector2Int coord, BlockType type)
-    {
-        return BlockPool.Instance.PlaceBlockAt(type, CoordToPos(coord));
-    }
 
     public void CreateData(Vector2Int dimensions)
     {
@@ -33,8 +29,7 @@ public class LevelCreator : MonoBehaviour
             {
                 if (x == 0 || x == data.sizeX - 1 || y == 0 || y == data.sizeY - 1)
                 {
-                    data[x, y] = BlockType.StaticWalls;
-                    data.blocks[x,y] = PlaceBlock(new(x, y), BlockType.StaticWalls);
+                    data.SetBlock(x, y, BlockType.StaticWalls);
                 }
             }
         }
@@ -43,13 +38,13 @@ public class LevelCreator : MonoBehaviour
 
     public void CleanUpBlocks()
     {
-        if(levelData != null)
+        if (levelData != null)
         {
             for (int x = 0; x < levelData.sizeX; x++)
             {
                 for (int y = 0; y < levelData.sizeY; y++)
                 {
-                    BlockPool.Instance.ReturnBlock((BlockType)levelData[x,y], levelData.blocks[x, y]);
+                    BlockPool.Instance.ReturnBlock(levelData, new(x, y));
                 }
             }
         }

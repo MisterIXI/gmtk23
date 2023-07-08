@@ -7,6 +7,7 @@ using UnityEngine;
 public class BlockPool : MonoBehaviour
 {
     public static BlockPool Instance;
+    private Transform activeBlocksParent;
     private UtilitySettings utilitySettings;
     private Dictionary<BlockType, List<BaseBlock>> pool;
     private PlayerBlock playerBlock;
@@ -21,6 +22,8 @@ public class BlockPool : MonoBehaviour
         }
         Instance = this;
         utilitySettings = SettingsHolder.Instance.UtilitySettings;
+        activeBlocksParent = new GameObject("LevelBlocksParent").transform;
+        activeBlocksParent.parent = transform.parent;
         BuildPrefabDict();
         InitPool();
     }
@@ -67,6 +70,8 @@ public class BlockPool : MonoBehaviour
 
     public BaseBlock PlaceBlockAt(BlockType type, Vector3 pos)
     {
+        if (type == BlockType.Empty)
+            return null;
         BaseBlock block;
         if (type == BlockType.Goal)
         {
@@ -101,15 +106,22 @@ public class BlockPool : MonoBehaviour
             block = pool[type].First();
             pool[type].RemoveAt(0);
         }
+        Vector2Int coord = LevelCreator.PosToCoord(pos);
         block.transform.position = pos;
         block.gameObject.SetActive(true);
-        block.transform.parent = null;
+        block.name = $"[{coord.x},{coord.y}]{type}";
+        block.transform.parent = activeBlocksParent;
         return block;
+    }
+
+    public void ReturnBlock(LevelData levelData, Vector2Int coord)
+    {
+        levelData.SetBlock(coord, BlockType.Empty);
     }
 
     public void ReturnBlock(BlockType type, BaseBlock block)
     {
-        if (type == 0 || block == null)
+        if (type == BlockType.Empty || block == null)
             return;
         block.gameObject.SetActive(false);
         block.transform.parent = transform;
