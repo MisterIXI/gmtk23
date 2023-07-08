@@ -24,4 +24,23 @@ static class LevelDataExtensions
             return false;
         return true;
     }
+
+    public static bool HasGoalAndPlayerBlocks(this LevelData levelData)
+    {
+        bool foundPlayer = false;
+        bool foundGoal = false;
+        for (int x = 1; x < levelData.sizeX - 1; x++)
+        {
+            for (int y = 1; y < levelData.sizeY - 1; y++)
+            {
+                if (levelData[x, y] == BlockType.Goal)
+                    foundGoal = true;
+                else if (levelData[x, y] == BlockType.Player)
+                    foundPlayer = true;
+                if (foundGoal && foundPlayer)
+                    return true;
+            }
+        }
+        return false;
+    }
 }

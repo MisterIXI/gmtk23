@@ -3,6 +3,7 @@ using UnityEngine;
 public class SettingsHolder : MonoBehaviour
 {
     [field: SerializeField] public UtilitySettings UtilitySettings { get; private set; }
+    [field: SerializeField] public GameSettings GameSettings { get; private set; }
     private static SettingsHolder _instance;
     public static SettingsHolder Instance
     {
@@ -20,7 +21,7 @@ public class SettingsHolder : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null)
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;

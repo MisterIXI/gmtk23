@@ -8,6 +8,8 @@ public class LevelData
 {
     public Vector2Int? PlayerPos;
     public Vector2Int? GoalPos;
+    public VectorArray<int> blockdata { get; private set; }
+    public VectorArray<BaseBlock> blocks { get; private set; }
     public LevelData(Vector2Int size)
     {
         blockdata = new VectorArray<int>(size);
@@ -58,8 +60,4 @@ public class LevelData
         blockdata[x, y] = (int)type;
         blocks[x, y] = block;
     }
-
-
-    private VectorArray<int> blockdata;
-    public VectorArray<BaseBlock> blocks { get; private set; }
 }

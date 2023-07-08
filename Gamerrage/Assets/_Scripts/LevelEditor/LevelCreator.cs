@@ -18,8 +18,9 @@ public class LevelCreator : MonoBehaviour
         Instance = this;
         utilSettings = SettingsHolder.Instance.UtilitySettings;
     }
-    private void Start() {
-        CreateData(new(10,10));
+    private void Start()
+    {
+        CreateData(new(10, 10));
     }
     public static Vector3 CoordToPos(Vector2Int coord) => new Vector3(coord.x + 0.5f, coord.y + 0.5f, 0);
     public static Vector2Int PosToCoord(Vector3 pos) => new Vector2Int((int)pos.x, (int)pos.y);

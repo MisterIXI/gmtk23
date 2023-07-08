@@ -155,3 +155,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <UtilitySettings>k__BackingField: {fileID: 11400000, guid: 183d870ca164b9647af699f2efe0f516,
     type: 2}
+  <GameSettings>k__BackingField: {fileID: 11400000, guid: c380e86b94780a348a3c19749fbdd831,
+    type: 2}
