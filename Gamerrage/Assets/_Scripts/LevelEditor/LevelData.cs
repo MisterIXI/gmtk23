@@ -31,25 +31,35 @@ public class LevelData
     public void SetBlock(int x, int y, BlockType type)
     {
         // check if goal or player are overwritten
-        if(this[x,y] == BlockType.Goal)
+        if (this[x, y] == BlockType.Goal)
             GoalPos = null;
-        if(this[x,y] == BlockType.Player)
+        if (this[x, y] == BlockType.Player)
             PlayerPos = null;
-        
+
         // check if goal or player are being set
-        if(type == BlockType.Goal && GoalPos != null)
-            SetBlock(GoalPos.Value, BlockType.Empty);
-        if(type==BlockType.Player && PlayerPos != null)
-            SetBlock(PlayerPos.Value, BlockType.Empty);
-
+        if (type == BlockType.Goal)
+        {
+            // kill old block
+            if (GoalPos != null)
+                SetBlock(GoalPos.Value, BlockType.Empty);
+            GoalPos = new(x, y);
+        }
+        if (type == BlockType.Player)
+        {
+            //kill old block
+            if (PlayerPos != null)
+                SetBlock(PlayerPos.Value, BlockType.Empty);
+            PlayerPos = new(x, y);
+        }
         // give back previous block
-        BlockPool.Instance.ReturnBlock(this[x,y], blocks[x,y]);
-
+        BlockPool.Instance.ReturnBlock(this[x, y], blocks[x, y]);
         // update block arrays
         BaseBlock block = BlockPool.Instance.PlaceBlockAt(type, LevelCreator.CoordToPos(new(x, y)));
         blockdata[x, y] = (int)type;
         blocks[x, y] = block;
     }
+
+
     private VectorArray<int> blockdata;
     public VectorArray<BaseBlock> blocks { get; private set; }
 }
