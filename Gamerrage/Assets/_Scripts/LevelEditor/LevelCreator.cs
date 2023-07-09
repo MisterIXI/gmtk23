@@ -20,8 +20,9 @@ public class LevelCreator : MonoBehaviour
     }
     private void Start()
     {
-        CreateData(new(10, 10));
+        CreateData(new(15, 100));
     }
+    public static Vector3 GraphCoordToPos(Vector2Int coord) => CoordToPos(coord + Vector2Int.up);
     public static Vector3 CoordToPos(Vector2Int coord) => new Vector3(coord.x + 0.5f, coord.y + 0.5f, 0);
     public static Vector2Int PosToCoord(Vector3 pos) => new Vector2Int((int)pos.x, (int)pos.y);
 

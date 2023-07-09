@@ -9,6 +9,13 @@ public class MapValidator : MonoBehaviour
     public static Action<MapGraph> callback;
     public MapGraph Graph;
     [field: SerializeField] private bool DrawGizmos;
+    private PathFindingAgent agent;
+    private PathFollower follower;
+    private void Awake()
+    {
+        agent = new GameObject("PathFindingAgent").AddComponent<PathFindingAgent>();
+        follower = agent.gameObject.AddComponent<PathFollower>();
+    }
     public void TestGraph()
     {
         callback += ReceiveGraph;
@@ -22,9 +29,14 @@ public class MapValidator : MonoBehaviour
         Debug.Log("Received Graph!");
         callback -= ReceiveGraph;
     }
+    public void FindAndFollowPath()
+    {
+        Vector2Int start = LevelCreator.LevelData.PlayerPos.Value;
+        Vector2Int goal = LevelCreator.LevelData.GoalPos.Value;
+        follower.PlayPath(Graph, GraphSolver.SolveForPath(Graph, start, goal));
+    }
 
-
-    public static MapGraph ValidateAndMapLevelData(Action<MapGraph> callback, LevelData levelData)
+    public MapGraph ValidateAndMapLevelData(Action<MapGraph> callback, LevelData levelData)
     {
         if (!levelData.HasGoalAndPlayerBlocks())
         {
@@ -32,11 +44,11 @@ public class MapValidator : MonoBehaviour
             return null;
         }
         MapGraph graph = new MapGraph(levelData);
-        PathFindingAgent agent = new GameObject("PathFindingAgent").AddComponent<PathFindingAgent>();
         // agent.transform.parent = transform.parent;
         agent.ExploreLevelData(callback, graph, LevelCreator.LevelData);
         return graph;
     }
+
 
     [field: SerializeField] private int GizmoPaths;
 
@@ -57,7 +69,7 @@ public class MapValidator : MonoBehaviour
             //     Gizmos.DrawCube(new(start.x + x_dist / 2, start.y, -0.25f), new(x_dist + 0.8f, 0.9f, 0.5f));
             // }
             Gizmos.color = Color.blue;
-            int nodeNum = 0;
+            // int nodeNum = 0;
             foreach (var node in Graph.Nodes)
             {
 

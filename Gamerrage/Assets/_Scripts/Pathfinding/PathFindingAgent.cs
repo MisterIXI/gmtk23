@@ -36,7 +36,7 @@ public class PathFindingAgent : MonoBehaviour
                 // Debug.Log("Thinking about edgess....");
                 if (targetNode != null)
                 {
-                    Debug.Log("Adding Edge!");
+                    // Debug.Log("Adding Edge!");
                     // finish current jump
                     GraphEdge edge = new GraphEdge();
                     edge.source = _currentCoord;
@@ -75,7 +75,7 @@ public class PathFindingAgent : MonoBehaviour
 
     private IEnumerator JumpIterator(IEnumerator<GraphNode> inner_iter, Action<MapGraph> callback)
     {
-        Debug.Log("Jumpiter start");
+        // Debug.Log("Jumpiter start");
         Time.timeScale = 100;
         float strengthStep = (_settings.JumpStrengthRange.y - _settings.JumpStrengthRange.x) / _settings.AutoJumpTestSteps;
         while (inner_iter.MoveNext())
@@ -106,10 +106,13 @@ public class PathFindingAgent : MonoBehaviour
         Time.timeScale = 1;
         callback?.Invoke(_graph);
         _graph = null;
+        Destroy(_jumper.gameObject);
     }
 
     private void OnDrawGizmos()
     {
+        if (_jumper == null)
+            return;
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(_jumper.transform.position + Vector3.down, 0.5f);
     }

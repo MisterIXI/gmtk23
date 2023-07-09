@@ -15,6 +15,10 @@ public class MapValidatorEditor : Editor
         {
             validator.TestGraph();
         }
+        if (GUILayout.Button("PlayPath"))
+        {
+            validator.FindAndFollowPath();
+        }
         GUILayout.Space(10);
         if (validator.Graph?.Nodes != null)
         {

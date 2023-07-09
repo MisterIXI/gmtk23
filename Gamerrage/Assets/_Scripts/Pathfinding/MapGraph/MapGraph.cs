@@ -5,11 +5,13 @@ using UnityEngine;
 
 public class MapGraph
 {
+    public Dictionary<Vector2Int, GraphNode> NodeLookupTable;
     public List<GraphNode> Nodes;
     private LevelData _levelData;
     public MapGraph(LevelData levelData)
     {
         Nodes = new List<GraphNode>();
+        NodeLookupTable = new Dictionary<Vector2Int, GraphNode>();
         this._levelData = levelData;
         BuildMapGraph();
     }
@@ -32,6 +34,7 @@ public class MapGraph
                         Nodes.Add(currentNode);
                     }
                     currentNode.points.Add(new(x, y));
+                    NodeLookupTable.Add(new(x, y), currentNode);
                 }
                 else
                     currentNode = null;

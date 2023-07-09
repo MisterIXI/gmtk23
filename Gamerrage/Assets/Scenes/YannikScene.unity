@@ -657,36 +657,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: BasePackage
       objectReference: {fileID: 0}
-    - target: {fileID: 6128421137142437544, guid: 6062f85497d3bed40a907b68dae7bdd6,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6128421137142437544, guid: 6062f85497d3bed40a907b68dae7bdd6,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6128421137142437544, guid: 6062f85497d3bed40a907b68dae7bdd6,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7282720090822713886, guid: 6062f85497d3bed40a907b68dae7bdd6,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7282720090822713886, guid: 6062f85497d3bed40a907b68dae7bdd6,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7282720090822713886, guid: 6062f85497d3bed40a907b68dae7bdd6,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
