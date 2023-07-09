@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34f1f087ee7d53c4999f3d69124761ee, type: 3}
+  m_Name: UtilitySettings
+  m_EditorClassIdentifier: 
+  PoolStartSize: 3
+  NormalBlock: {fileID: -3960304078451452663, guid: 9fcb15e23ded374438f04c6fb9fcfe68,
+    type: 3}
+  SlantedLeft: {fileID: -5146550049856698241, guid: e766c336416dc6146ba5799adbb496fe,
+    type: 3}
+  SlantedRight: {fileID: -2402406398469893428, guid: 010e36f2cc7745d498054d3526685ef1,
+    type: 3}
+  StaticBlock: {fileID: 7187962900237907803, guid: ea636e45a2f49164184f67bf770a71c1,
+    type: 3}
+  GoalBlock: {fileID: 8736895115919681251, guid: c9a3305272f8d474c91f817550f9cbb6,
+    type: 3}
+  PlayerBlock: {fileID: -5728061338955909699, guid: e3c8267848e711f4d92d3bceee1900b2,
+    type: 3}

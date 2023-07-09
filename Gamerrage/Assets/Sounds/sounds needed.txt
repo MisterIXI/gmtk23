@@ -1,0 +1,11 @@
+game sounds:
+jump		!	done
+splat		!	done
+walk			done
+click		!	done
+block place	!	done
+block destroy	!	done
+error		!	done
+point gain		done
+
+streamer sounds:
