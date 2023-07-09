@@ -54,6 +54,59 @@ public class StreamerAnimator : MonoBehaviour
                 eye.material = mat;
             }
         }
+        if (_tMouth > Time.time)
+        {
+            _tMouth = Time.time + _settings.MouthCD * Random.value;
+            int randomInt = Random.Range(0, 4);
+            Material mat = _mouth_aah;
+            switch (randomInt)
+            {
+                case 0:
+                    mat = _mouth_aah;
+                    break;
+                case 1:
+                    mat = _mouth_frown;
+                    break;
+                case 2:
+                    mat = _mouth_happy;
+                    break;
+                case 3:
+                    mat = _mouth_neutral;
+                    break;
+                case 4:
+                    mat = _mouth_open;
+                    break;
+                case 5:
+                    mat = _mouth_smirk;
+                    break;
+            }
+            foreach (var mouth in _mouth)
+            {
+                mouth.material = mat;
+            }
+        }
+        if (_tEyebrow > Time.time)
+        {
+            _tEyebrow = Time.time + _settings.EyebrowCD * Random.value;
+            int randomInt = Random.Range(0, 4);
+            Material mat = _eyebrows_normal;
+            switch (randomInt)
+            {
+                case 0:
+                    mat = _eyebrows_normal;
+                    break;
+                case 1:
+                    mat = _eyebrows_high;
+                    break;
+                case 2:
+                    mat = _eyebrows_angry;
+                    break;
+            }
+            foreach (var eyebrow in _eyebrows)
+            {
+                eyebrow.material = mat;
+            }
+        }
     }
     private void SubscribeEvents()
     {
