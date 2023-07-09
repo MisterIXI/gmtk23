@@ -11,6 +11,7 @@ public class CameraController : MonoBehaviour
     private Camera _cam;
     public static CameraController Instance { get; private set; }
     [field: SerializeField] private StreamerAnimator _streamer;
+    public static StreamerAnimator Streamer => Instance._streamer;
     private void Awake()
     {
         if (Instance != null)

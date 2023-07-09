@@ -66,6 +66,7 @@ public class JumpController : MonoBehaviour
     {
         if (other.tag == "Goal")
         {
+            other.GetComponent<ParticleSystem>()?.Play();
             OnGoalReached?.Invoke();
         }
     }

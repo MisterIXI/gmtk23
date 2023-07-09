@@ -4,9 +4,9 @@ using static UnityEngine.Random;
 public class StreamerAnimator : MonoBehaviour
 {
     [field: SerializeField] private Animator _anim;
-    [field: SerializeField] private MeshRenderer[] _eyes;
-    [field: SerializeField] private MeshRenderer[] _eyebrows;
-    [field: SerializeField] private MeshRenderer _mouth;
+    [field: SerializeField] private SkinnedMeshRenderer[] _eyes;
+    [field: SerializeField] private SkinnedMeshRenderer[] _eyebrows;
+    [field: SerializeField] private SkinnedMeshRenderer _mouth;
     [field: SerializeField] private Material _eye_normal;
     [field: SerializeField] private Material _eye_surprised;
     [field: SerializeField] private Material _eye_straight;
@@ -32,7 +32,7 @@ public class StreamerAnimator : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (_tEye > Time.time)
+        if (_tEye < Time.time)
         {
             _tEye = Time.time + _settings.EyeCD * Random.value;
             int randomInt = Random.Range(0, 4);
@@ -54,7 +54,7 @@ public class StreamerAnimator : MonoBehaviour
                 eye.material = mat;
             }
         }
-        if (_tMouth > Time.time)
+        if (_tMouth < Time.time)
         {
             _tMouth = Time.time + _settings.MouthCD * Random.value;
             int randomInt = Random.Range(0, 4);
@@ -82,7 +82,7 @@ public class StreamerAnimator : MonoBehaviour
             }
             _mouth.material = mat;
         }
-        if (_tEyebrow > Time.time)
+        if (_tEyebrow < Time.time)
         {
             _tEyebrow = Time.time + _settings.EyebrowCD * Random.value;
             int randomInt = Random.Range(0, 4);
@@ -103,6 +103,30 @@ public class StreamerAnimator : MonoBehaviour
             {
                 eyebrow.material = mat;
             }
+        }
+        if (_tAnim < Time.time)
+        {
+            _tAnim = Time.time + _settings.PoseCD * Random.value;
+            TriggerAnim(Random.Range(0, 3));
+        }
+    }
+
+    public void TriggerAnim(int id)
+    {
+        switch (id)
+        {
+            case 0:
+                _anim.SetTrigger("Normal");
+                break;
+            case 1:
+                _anim.SetTrigger("Normal2");
+                break;
+            case 2:
+                _anim.SetTrigger("Sweaty");
+                break;
+            case 3:
+                _anim.SetTrigger("Rage");
+                break;
         }
     }
     private void SubscribeEvents()

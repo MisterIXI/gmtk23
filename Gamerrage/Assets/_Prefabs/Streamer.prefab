@@ -45,10 +45,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91e4c3ded86e9f04eafe54b1d6203132, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _anim: {fileID: 0}
-  _eyes: []
-  _eyebrows: []
-  _mouth: {fileID: 0}
+  _anim: {fileID: 5993884728906545871}
+  _eyes:
+  - {fileID: 6111439726156625744}
+  - {fileID: 3119430233912716001}
+  _eyebrows:
+  - {fileID: 5133150609248837422}
+  - {fileID: 8321243634306469935}
+  _mouth: {fileID: 6520255782819947219}
   _eye_normal: {fileID: 2100000, guid: 998e601836eee1a47a0563591fcc7cdc, type: 2}
   _eye_surprised: {fileID: 2100000, guid: e639174f3c20e464cbfc148a5e33f8ff, type: 2}
   _eye_straight: {fileID: 2100000, guid: 70b8558e13eb3514bbb48c85e472af24, type: 2}
@@ -228,9 +232,33 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 5993884728906545871}
   m_SourcePrefab: {fileID: 100100000, guid: 29dd7e873c1d44142a4f6329fcb080a8, type: 3}
+--- !u!137 &3119430233912716001 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8815719266171919591, guid: 29dd7e873c1d44142a4f6329fcb080a8,
+    type: 3}
+  m_PrefabInstance: {fileID: 5845048559069935110}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &5133150609248837422 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7628721759937697496, guid: 29dd7e873c1d44142a4f6329fcb080a8,
+    type: 3}
+  m_PrefabInstance: {fileID: 5845048559069935110}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &6111439726156625744 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 418266039290364246, guid: 29dd7e873c1d44142a4f6329fcb080a8,
+    type: 3}
+  m_PrefabInstance: {fileID: 5845048559069935110}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6239580943908655597 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 29dd7e873c1d44142a4f6329fcb080a8,
+    type: 3}
+  m_PrefabInstance: {fileID: 5845048559069935110}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &6520255782819947219 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -8403344563188607787, guid: 29dd7e873c1d44142a4f6329fcb080a8,
     type: 3}
   m_PrefabInstance: {fileID: 5845048559069935110}
   m_PrefabAsset: {fileID: 0}
@@ -261,3 +289,9 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!137 &8321243634306469935 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2479009825608230441, guid: 29dd7e873c1d44142a4f6329fcb080a8,
+    type: 3}
+  m_PrefabInstance: {fileID: 5845048559069935110}
+  m_PrefabAsset: {fileID: 0}
