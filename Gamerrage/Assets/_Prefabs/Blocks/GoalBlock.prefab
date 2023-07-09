@@ -67,21 +67,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: fb9691d79b0ffe94bbdd8149cb0d41ee,
+      objectReference: {fileID: 138938440, guid: 0da9bdb90ef3de544ac4930d5251f5b3,
         type: 3}
     - target: {fileID: 1138179933013767928, guid: 84aa31733c99e43438cff382655dd41d,
         type: 3}
       propertyPath: m_Color.b
-      value: 0.25943398
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1138179933013767928, guid: 84aa31733c99e43438cff382655dd41d,
         type: 3}
       propertyPath: m_Color.g
-      value: 0.25943398
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1138179933013767928, guid: 84aa31733c99e43438cff382655dd41d,
         type: 3}
       propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1138179933013767928, guid: 84aa31733c99e43438cff382655dd41d,
+        type: 3}
+      propertyPath: m_DrawMode
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1138179933013767928, guid: 84aa31733c99e43438cff382655dd41d,
@@ -106,6 +111,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 8736895115919681251}
+    - targetCorrespondingSourceObject: {fileID: 6613014697842118469, guid: 84aa31733c99e43438cff382655dd41d,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6296686263790918433}
   m_SourcePrefab: {fileID: 100100000, guid: 84aa31733c99e43438cff382655dd41d, type: 3}
 --- !u!1 &4951946982667571748 stripped
 GameObject:
@@ -152,7 +161,7 @@ BoxCollider2D:
     oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
-    drawMode: 0
+    drawMode: 1
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
@@ -170,3 +179,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 060ee0f1b2bc541419515a2949161446, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &6296686263790918433
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4951946982667571748}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 72eeb6fb54c0d394fab936b6e3f0eb0f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
