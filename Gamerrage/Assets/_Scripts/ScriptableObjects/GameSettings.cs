@@ -11,5 +11,8 @@ public class GameSettings : ScriptableObject
     [field: SerializeField] public float TimeToHoldStill { get; private set; } = 1f;
     [field: SerializeField] public float WaddleSpeed { get; private set; } = 4f;
     [field: SerializeField] public float WaddleVariance { get; private set; } = 0.1f;
+    [field: Header("Animation Settings")]
+    [field: SerializeField][field: Range(0f, 20f)] public float FallingDistressThreshhold { get; private set; } = 0.5f;
+    [field: SerializeField][field: Range(0f, 20f)] public float FallingSplatThreshhold { get; private set; } = 1f;
 
 }

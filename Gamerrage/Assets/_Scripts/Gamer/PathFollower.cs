@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+
 public class PathFollower : MonoBehaviour
 {
     private JumpController _jumper;
@@ -44,7 +45,7 @@ public class PathFollower : MonoBehaviour
                 if (Vector2.Distance(_waddleTarget, _jumper.rb.position) < 0.01f)
                     _state = FollowState.Ready;
             }
-            else
+            else if (_state == FollowState.Ready)
             {
                 if (targetCoord != LevelCreator.PosToCoord(_jumper.rb.position))
                 {
@@ -57,9 +58,7 @@ public class PathFollower : MonoBehaviour
                 {
                     GraphEdge edge = _path[0];
                     _path.RemoveAt(0);
-                    _jumper.InstantJump(edge.isDirLeft, edge.jumpStrength);
-                    targetCoord = edge.dest;
-                    _state = FollowState.Jumping;
+                    StartCoroutine(DelayedJump(edge));
                 }
                 else
                 {
@@ -67,6 +66,16 @@ public class PathFollower : MonoBehaviour
                 }
             }
         }
+    }
+
+    private IEnumerator DelayedJump(GraphEdge edge)
+    {
+        _state = FollowState.Charging;
+        _jumper.JumpChargeTrigger();
+        yield return new WaitForSeconds(1f);
+        _jumper.InstantJump(edge.isDirLeft, edge.jumpStrength);
+        targetCoord = edge.dest;
+        _state = FollowState.Jumping;
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -97,5 +106,6 @@ enum FollowState
 {
     Jumping,
     Centering,
+    Charging,
     Ready
 }

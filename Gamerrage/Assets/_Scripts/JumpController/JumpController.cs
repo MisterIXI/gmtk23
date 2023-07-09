@@ -7,6 +7,7 @@ public class JumpController : MonoBehaviour
 {
     public static event Action OnStartedCharging;
     public static event Action<float> OnChargeProgressChanged;
+    public static event Action OnCollision;
     public static event Action OnJump;
 
     public bool IsMoving => rb.velocity.magnitude > 0.1f;
@@ -15,6 +16,8 @@ public class JumpController : MonoBehaviour
     private float _chargeStart;
     private float _currentCharge;
     private GameSettings _settings;
+    private bool _upwardsDir;
+    private bool _canLand;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -44,6 +47,10 @@ public class JumpController : MonoBehaviour
         OnStartedCharging?.Invoke();
     }
 
+    public void JumpChargeTrigger()
+    {
+        OnStartedCharging?.Invoke();
+    }
     public void ReleaseJump(bool jumpLeft)
     {
         float dir = jumpLeft ? -1 : 1;
@@ -52,8 +59,12 @@ public class JumpController : MonoBehaviour
         _currentCharge = 0;
         rb.AddForce(force, ForceMode2D.Impulse);
         OnJump?.Invoke();
+        _upwardsDir = true;
     }
-
+    private void OnCollisionEnter(Collision other)
+    {
+        OnCollision?.Invoke();
+    }
     public void InstantJump(bool jumpLeft, float jumpCharge)
     {
         _currentCharge = jumpCharge;
