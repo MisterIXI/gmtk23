@@ -80,10 +80,7 @@ public class StreamerAnimator : MonoBehaviour
                     mat = _mouth_smirk;
                     break;
             }
-            foreach (var mouth in _mouth)
-            {
-                mouth.material = mat;
-            }
+            _mouth.material = mat;
         }
         if (_tEyebrow > Time.time)
         {

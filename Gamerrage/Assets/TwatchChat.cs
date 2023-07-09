@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 public class TwatchChat : MonoBehaviour
 {
     [field: SerializeField] public GameObject ChatPanel { get; private set; }
@@ -38,35 +38,36 @@ public class TwatchChat : MonoBehaviour
 
     void FixedUpdate()
     {
-        // if (Time.time > nextMessageTime)
-        // {
-        int excitementLvl = getExcitement();
-        string username = usernames[(int)Random.Range(0f, usernames.Length)];
-        string[] msg = MsgDictionary[excitementLvl];
-        int randomizer = (int)Random.Range(1f, 10f);
-        switch (randomizer)
+        if (Time.time > nextMessageTime)
         {
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-            case 6:
-            case 7:
-                MessageList.Add(GetTwatchMessage(username, msg[(int)Random.Range(0f, (int)msg.Length)]));
-                break;
-            case 8:
-            case 9:
-                MessageList.Add(GetTwatchMessage(username, msg[(int)Random.Range(0f, (int)msg.Length)]));
-                MessageList.Add(GetTwatchMessage(username, msg[(int)Random.Range(0f, (int)msg.Length)]));
-                break;
-            case 10:
-                MessageList.Add(GetTwatchMessage(username, msg[(int)Random.Range(0f, (int)msg.Length)]));
-                MessageList.Add(GetTwatchMessage(username, msg[(int)Random.Range(0f, (int)msg.Length)]));
-                MessageList.Add(GetTwatchMessage(username, msg[(int)Random.Range(0f, (int)msg.Length)]));
-                break;
+            int excitementLvl = getExcitement();
+            string username = usernames[(int)Random.Range(0f, usernames.Length)];
+            string[] msg = MsgDictionary[excitementLvl];
+            int randomizer = (int)Random.Range(1f, 10f);
+            switch (randomizer)
+            {
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                case 6:
+                case 7:
+                    MessageList.Add(GetTwatchMessage(username, msg[(int)Random.Range(0f, (int)msg.Length)]));
+                    break;
+                case 8:
+                case 9:
+                    MessageList.Add(GetTwatchMessage(username, msg[(int)Random.Range(0f, (int)msg.Length)]));
+                    MessageList.Add(GetTwatchMessage(username, msg[(int)Random.Range(0f, (int)msg.Length)]));
+                    break;
+                case 10:
+                    MessageList.Add(GetTwatchMessage(username, msg[(int)Random.Range(0f, (int)msg.Length)]));
+                    MessageList.Add(GetTwatchMessage(username, msg[(int)Random.Range(0f, (int)msg.Length)]));
+                    MessageList.Add(GetTwatchMessage(username, msg[(int)Random.Range(0f, (int)msg.Length)]));
+                    break;
+            }
+            nextMessageTime = Time.time + Random.Range(0.01f, 1f);
         }
-        // nextMessageTime = Time.time + Random.Range(0.5f, 2f);
 
         //             if (ViewerController.CheckProgress())
         // {

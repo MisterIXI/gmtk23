@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4347063183563348808
 Transform:
   m_ObjectHideFlags: 0
@@ -31,7 +31,7 @@ Transform:
   m_Children:
   - {fileID: 6239580943908655597}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &6117020150849183099
 MonoBehaviour:
@@ -46,18 +46,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _anim: {fileID: 0}
-  _eye_normal: {fileID: 0}
-  _eye_surprised: {fileID: 0}
-  _eye_straight: {fileID: 0}
-  _eyebrows_normal: {fileID: 0}
-  _eyebrows_high: {fileID: 0}
-  _eyebrows_angry: {fileID: 0}
-  _mouth_aah: {fileID: 0}
-  _mouth_frown: {fileID: 0}
-  _mouth_happy: {fileID: 0}
-  _mouth_neutral: {fileID: 0}
-  _mouth_open: {fileID: 0}
-  _mouth_smirk: {fileID: 0}
+  _eyes: []
+  _eyebrows: []
+  _mouth: {fileID: 0}
+  _eye_normal: {fileID: 2100000, guid: 998e601836eee1a47a0563591fcc7cdc, type: 2}
+  _eye_surprised: {fileID: 2100000, guid: e639174f3c20e464cbfc148a5e33f8ff, type: 2}
+  _eye_straight: {fileID: 2100000, guid: 70b8558e13eb3514bbb48c85e472af24, type: 2}
+  _eyebrows_normal: {fileID: 2100000, guid: e96d6c612a0d77d4e852a1e464891763, type: 2}
+  _eyebrows_high: {fileID: 2100000, guid: 8906fde4ef30b8b47b46e0fc37ffb433, type: 2}
+  _eyebrows_angry: {fileID: 2100000, guid: 6722f65dea5205f4fb579e64abb29465, type: 2}
+  _mouth_aah: {fileID: 2100000, guid: c597b58402caa9648815126c14f746d2, type: 2}
+  _mouth_frown: {fileID: 2100000, guid: 76ca2545acedf6f4487bc90376e74864, type: 2}
+  _mouth_happy: {fileID: 2100000, guid: 3dd1134cbb80eea488798c7d67694735, type: 2}
+  _mouth_neutral: {fileID: 2100000, guid: 9b0f16d2f34af8641b39fb06d970622f, type: 2}
+  _mouth_open: {fileID: 2100000, guid: 5c9ae557990b29c409b1ecf479507f0d, type: 2}
+  _mouth_smirk: {fileID: 2100000, guid: 11f4e8d52e76eb2438e785de090977ec, type: 2}
 --- !u!1001 &5845048559069935110
 PrefabInstance:
   m_ObjectHideFlags: 0

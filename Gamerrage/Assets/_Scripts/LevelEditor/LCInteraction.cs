@@ -62,6 +62,15 @@ public class LCInteraction : MonoBehaviour
         previewBorder.color = isValid ? Color.green : Color.red;
         previewBorder.transform.position = LevelCreator.CoordToPos(newCoord.Value);
     }
+
+    private void PreviewStateCheck()
+    {
+        if (GameManager.GameState != GameState.EditingLevel)
+        {
+            UpdatePreviewType(currentBlockType, BlockType.Empty);
+            UpdatePreviewCoord(currentCoord, Vector2Int.one * -1);
+        }
+    }
     private void CheckForInteractionOnPosChange()
     {
         if (currentCoord == null)
@@ -173,8 +182,7 @@ public class LCInteraction : MonoBehaviour
             {
                 Vector2Int? oldCoord = currentCoord;
                 currentCoord = Vector2Int.zero;
-                OnInteractionCoordChanged?.Invoke(oldCoord, Vector2Int.zero);
-                CheckForInteractionOnPosChange();
+                OnInteractionCoordChanged?.Invoke(oldCoord, Vector2Int.one * -1);
             }
         }
     }
