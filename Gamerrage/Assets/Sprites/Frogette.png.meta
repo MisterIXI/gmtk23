@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: 4
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -130,15 +130,15 @@ TextureImporter:
         y: 0
         width: 32
         height: 32
-      alignment: 9
-      pivot: {x: 32, y: 32}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2dbdd525b89a0ec4390d93e0da88c485
-      internalID: -921662965
+      spriteID: 92fbb00e050f1884ab67588773c76844
+      internalID: 138938440
       vertices: []
       indices: 
       edges: []
@@ -151,15 +151,15 @@ TextureImporter:
         y: 0
         width: 32
         height: 32
-      alignment: 9
-      pivot: {x: 32, y: 32}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 072cbd6fd681c5e408500e6169f86719
-      internalID: -2027955213
+      spriteID: 18634c2dc2f94484899d49bddb0b47c3
+      internalID: -1125714676
       vertices: []
       indices: 
       edges: []
@@ -172,15 +172,15 @@ TextureImporter:
         y: 0
         width: 32
         height: 32
-      alignment: 9
-      pivot: {x: 32, y: 32}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4aa62964efc8ac148b680533d77cf196
-      internalID: -1125011921
+      spriteID: c4b16bcb0ebd5d44b987356d3bb742ff
+      internalID: -856090216
       vertices: []
       indices: 
       edges: []
@@ -188,7 +188,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 73b3c4b3f4764b14686eebf43c942a13
+    spriteID: ce51ae688b8d1124eb0501419ebf403c
     internalID: 0
     vertices: []
     indices: 
@@ -196,9 +196,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Frogette_0: -921662965
-      Frogette_1: -2027955213
-      Frogette_2: -1125011921
+      Frogette_0: 138938440
+      Frogette_1: -1125714676
+      Frogette_2: -856090216
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
