@@ -27,24 +27,7 @@ public class ViewerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        // if (Time.time > nextMessageTime)
-        // {
-        //     testCounter += 1;
-        //     if (CheckProgress())
-        //     {
-        //         viewerCounter += Random.Range(4f, 11f);
-        //     }
-        //     if (CheckHype())
-        //     {
-        //         viewerCounter *= 1.05f;
-        //     }
-        //     if (CheckFall())
-        //     {
-        //         viewerCounter *= 1.5f;
-        //     }
-        //     ViewerCounterLabel.text = "<color=\"red\">" + (int)viewerCounter;
-        // }
-        // nextMessageTime = Time.time + 2f;
+
     }
 
     public bool CheckProgress()

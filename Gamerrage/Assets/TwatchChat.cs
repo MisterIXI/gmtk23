@@ -68,20 +68,6 @@ public class TwatchChat : MonoBehaviour
             }
             nextMessageTime = Time.time + Random.Range(0.01f, 1f);
         }
-
-        //             if (ViewerController.CheckProgress())
-        // {
-        //     ViewerController.viewerCounter += Random.Range(4f, 11f);
-        // }
-        // if (ViewerController.CheckHype())
-        // {
-        //     ViewerController.viewerCounter *= 1.05f;
-        // }
-        // if (ViewerController.CheckFall())
-        // {
-        //     ViewerController.viewerCounter *= 1.5f;
-        // }
-        // ViewerController.ViewerCounterLabel.text = "<color=\"red\">" + (int)ViewerController.viewerCounter;
     }
 
 
