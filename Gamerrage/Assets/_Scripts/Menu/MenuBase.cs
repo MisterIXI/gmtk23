@@ -1,4 +1,5 @@
-public abstract class MenuBase : Monobehaviour
+using UnityEngine;
+public abstract class MenuBase : MonoBehaviour
 {
     public virtual void Init()
     {
@@ -6,7 +7,8 @@ public abstract class MenuBase : Monobehaviour
     }
     protected void ToMainMenu()
     {
-        if (MenuManager.Instance.PreviousMenu != MenuManager.Instance.MainMenu){
+        if (MenuManager.Instance.CurrentMenu == MenuManager.Instance.MainMenu)
+        {
             MenuManager.SwitchMenu(MenuState.Pause);
             return;
         }
@@ -17,6 +19,7 @@ public abstract class MenuBase : Monobehaviour
     {
         MenuManager.SwitchMenu(MenuState.Editor);
     }
+
     protected virtual void ToHUD()
     {
         MenuManager.SwitchMenu(MenuState.HUD);
@@ -37,14 +40,14 @@ public abstract class MenuBase : Monobehaviour
         MenuManager.SwitchMenu(MenuState.Controls);
     }
 
-        protected void ToSettingsMenu()
-    {
-        MenuManager.SwitchMenu(MenuState.Settings);
-    }
-
     protected virtual void QuitGame()
     {
         Application.Quit();
     }
 
+    // public abstract void SelectFirst();
+    public void SelectFirst()
+    {
+        MenuManager.Instance.EventSystem.SetSelectedGameObject(null);
+    }
 }

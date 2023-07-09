@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+
 public class MenuManager : MonoBehaviour
 {
     public static MenuManager Instance { get; private set; }
@@ -9,12 +10,46 @@ public class MenuManager : MonoBehaviour
     [field: SerializeField] public MenuBase Editor { get; private set; }
     [field: SerializeField] public MenuBase HUD { get; private set; }
     [field: SerializeField] public MenuBase Pause { get; private set; }
-    [field: SerializeField] public MenuBase Settings { get; private set; }
     [field: SerializeField] public MenuBase Controls { get; private set; }
     [field: SerializeField] public MenuBase Credits { get; private set; }
 
     public MenuBase CurrentMenu { get; private set; }
     public MenuBase PreviousMenu { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+        transform.SetParent(null);
+        DontDestroyOnLoad(gameObject);
+
+        MainMenu.Init();
+        // Editor.Init();
+        // HUD.Init();
+        Pause.Init();
+        Controls.Init();
+        Credits.Init();
+
+        // InputManager.OnPause += OnPauseButtonInput;
+    }
+
+    // private void OnPauseButtonInput(InputAction.CallbackContext context)
+    // {
+    //     if (GameManager.GameState == GameState.Playing)
+    //     {
+    //         GameManager.ChangeGameState(GameState.Paused);
+    //         SwitchMenu(MenuState.Pause);
+    //     }
+    //     else if (GameManager.GameState == GameState.Paused)
+    //     {
+    //         GameManager.ChangeGameState(GameState.Playing);
+    //         SwitchMenu(MenuState.HUD);
+    //     }
+    // }
     public static void SwitchMenu(MenuState menuState)
     {
         Debug.Log($"Switching to {menuState}");
@@ -34,9 +69,6 @@ public class MenuManager : MonoBehaviour
             case MenuState.Pause:
                 Instance.CurrentMenu = Instance.Pause;
                 break;
-            case MenuState.Settings:
-                Instance.CurrentMenu = Instance.Settings;
-                break;
             case MenuState.Controls:
                 Instance.CurrentMenu = Instance.Controls;
                 break;
@@ -47,4 +79,14 @@ public class MenuManager : MonoBehaviour
         Instance.CurrentMenu.SelectFirst();
         Instance.CurrentMenu.gameObject.SetActive(true);
     }
+
+    // private void OnDestroy()
+    // {
+    //     if (Instance == this)
+    //     {
+    //         Instance = null;
+    //         InputManager.OnPause -= OnPauseButtonInput;
+    //     }
+
+    // }
 }

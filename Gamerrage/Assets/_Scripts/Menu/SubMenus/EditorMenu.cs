@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
-
-public class SettingsMenu : MenuBase
+public class EditorMenu : MenuBase
 {
 
 }
