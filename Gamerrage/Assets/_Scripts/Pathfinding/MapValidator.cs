@@ -12,6 +12,7 @@ public class MapValidator : MonoBehaviour
     [field: SerializeField] private bool DrawGizmos;
     private PathFindingAgent agent;
     private PathFollower follower;
+    public string RejectionReason;
     public static MapValidator Instance { get; private set; }
     private void Awake()
     {
@@ -41,8 +42,12 @@ public class MapValidator : MonoBehaviour
 
     private void ReceiveGraph(MapGraph graph)
     {
+        RejectionReason = "No path found...";
         if (graph == null)
+        {
             GameManager.ChangeGameState(GameState.EditingLevel);
+            return;
+        }
         Graph = graph;
         Vector2Int start = LevelCreator.LevelData.PlayerPos.Value;
         Vector2Int goal = LevelCreator.LevelData.GoalPos.Value;
@@ -69,13 +74,19 @@ public class MapValidator : MonoBehaviour
         if (!LevelCreator.LevelData.HasGoalAndPlayerBlocks())
         {
             Debug.LogWarning("Player or Goal block are missing. Aborting...");
-            ReceiveGraph(null);
+            RejectionReason = "Player or Goal block missing";
+            StartCoroutine(delayedReject());
             return;
         }
         ResetValidation();
         MapGraph graph = new MapGraph(LevelCreator.LevelData);
         // agent.transform.parent = transform.parent;
         agent.ExploreLevelData(ReceiveGraph, graph, LevelCreator.LevelData);
+    }
+    private IEnumerator delayedReject()
+    {
+        yield return null;
+        GameManager.ChangeGameState(GameState.EditingLevel);
     }
     private void OnDestroy()
     {

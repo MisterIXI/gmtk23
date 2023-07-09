@@ -17,7 +17,8 @@ public class GameSettings : ScriptableObject
     [field: Header("Camera settings")]
     [field: SerializeField][field: Range(1, 50)] public int PixelScrollZone { get; private set; } = 15;
     [field: SerializeField][field: Range(0.01f, 100f)] public float ScrollSpeed { get; private set; } = 10f;
-    [field: SerializeField] public Vector2 CameraYBounds { get; private set; } = new(5, 50);
+    [field: SerializeField] public Vector2 CameraYBoundsEditor { get; private set; } = new(6.84f, 47f);
+    [field: SerializeField] public Vector2 CameraYBoundsStreamer { get; private set; } = new(4.83f, 46.12f);
     [field: SerializeField][field: Range(0.01f, 1f)] public float BackGroundParallaxMult = 0.7f;
     [field: SerializeField][field: Range(0.01f, 1f)] public float MiddleGroundParallaxMult = 0.3f;
 

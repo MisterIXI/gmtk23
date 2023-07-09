@@ -5,9 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class JumpController : MonoBehaviour
 {
+    public static event Action OnGoalReached;
     public static event Action OnStartedCharging;
     public static event Action<float> OnChargeProgressChanged;
-    public static event Action OnCollision;
     public static event Action OnJump;
 
     public bool IsMoving => rb.velocity.magnitude > 0.1f;
@@ -61,14 +61,17 @@ public class JumpController : MonoBehaviour
         OnJump?.Invoke();
         _upwardsDir = true;
     }
-    private void OnCollisionEnter(Collision other)
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        OnCollision?.Invoke();
+        if (other.tag == "Goal")
+        {
+            OnGoalReached?.Invoke();
+        }
     }
     public void InstantJump(bool jumpLeft, float jumpCharge)
     {
         _currentCharge = jumpCharge;
         ReleaseJump(jumpLeft);
     }
-
 }
