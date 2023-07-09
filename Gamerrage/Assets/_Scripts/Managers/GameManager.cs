@@ -54,6 +54,10 @@ public class GameManager : MonoBehaviour
             MenuManager.SwitchMenu(MenuState.HUD);
             MapValidator.Instance.FindAndFollowPath();
         }
+        if (oldstate == StreamerPlaying && newState == EditingLevel)
+        {
+            MenuManager.SwitchMenu(MenuState.Editor);
+        }
         OnGameStateChange?.Invoke(oldstate, _state);
     }
 

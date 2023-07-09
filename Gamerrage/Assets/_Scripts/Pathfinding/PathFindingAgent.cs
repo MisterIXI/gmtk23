@@ -63,6 +63,7 @@ public class PathFindingAgent : MonoBehaviour
         _jumper = Instantiate(_settings.PlayerPrefab);
         _iter = JumpIterator(graph.NodeIterator(), callback);
         _iter.MoveNext();
+        _jumper.SetValidator(true);
     }
 
     private void NextJump(Vector2 position, bool jumpLeft, float strength)

@@ -24,6 +24,7 @@ public class StreamerAnimator : MonoBehaviour
     private float _tEye;
     private float _tAnim;
     private GameSettings _settings;
+    private bool VictoryTriggered;
     private void Awake()
     {
         SubscribeEvents();
@@ -113,6 +114,8 @@ public class StreamerAnimator : MonoBehaviour
 
     public void TriggerAnim(int id)
     {
+        if (VictoryTriggered)
+            return;
         switch (id)
         {
             case 0:
@@ -126,17 +129,24 @@ public class StreamerAnimator : MonoBehaviour
                 break;
             case 3:
                 _anim.SetTrigger("Rage");
+                VictoryTriggered = true;
                 break;
         }
     }
+    private void OnGameStateChange(GameState newState, GameState oldState)
+    {
+        if (oldState == GameState.StreamerPlaying)
+            VictoryTriggered = false;
+    }
+
     private void SubscribeEvents()
     {
-
+        GameManager.OnGameStateChange += OnGameStateChange;
     }
 
     private void UnSubscribeEvents()
     {
-
+        GameManager.OnGameStateChange -= OnGameStateChange;
     }
     private void OnDestroy()
     {

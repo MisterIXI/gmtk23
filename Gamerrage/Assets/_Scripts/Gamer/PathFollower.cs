@@ -6,7 +6,8 @@ using UnityEngine;
 
 public class PathFollower : MonoBehaviour
 {
-    private JumpController _jumper;
+
+    public JumpController Jumper { get; private set; }
     private MapGraph _graph;
     private List<GraphEdge> _path;
     private GameSettings _settings;
@@ -25,13 +26,13 @@ public class PathFollower : MonoBehaviour
         {
             if (_state == FollowState.Jumping)
             {
-                if (!_jumper.IsMoving)
+                if (!Jumper.IsMoving)
                 {
                     _restingTime += Time.fixedDeltaTime;
                     if (_restingTime >= _settings.TimeToHoldStill)
                     {
                         _state = FollowState.Centering;
-                        _waddleTarget = LevelCreator.CoordToPos(LevelCreator.PosToCoord(_jumper.transform.position));
+                        _waddleTarget = LevelCreator.CoordToPos(LevelCreator.PosToCoord(Jumper.transform.position));
                         // _waddleTarget.x += UnityEngine.Random.value * _settings.WaddleVariance;
                     }
                 }
@@ -41,17 +42,17 @@ public class PathFollower : MonoBehaviour
             else if (_state == FollowState.Centering)
             {
                 // Debug.Log("Waddle waddle");
-                Vector2 pos = _jumper.rb.position;
-                _jumper.rb.MovePosition(Vector2.MoveTowards(pos, _waddleTarget, _settings.WaddleSpeed));
-                if (Vector2.Distance(_waddleTarget, _jumper.rb.position) < 0.01f)
+                Vector2 pos = Jumper.rb.position;
+                Jumper.rb.MovePosition(Vector2.MoveTowards(pos, _waddleTarget, _settings.WaddleSpeed));
+                if (Vector2.Distance(_waddleTarget, Jumper.rb.position) < 0.01f)
                     _state = FollowState.Ready;
             }
             else if (_state == FollowState.Ready)
             {
-                if (targetCoord != LevelCreator.PosToCoord(_jumper.rb.position))
+                if (targetCoord != LevelCreator.PosToCoord(Jumper.rb.position))
                 {
                     // wrong path, has to repath
-                    Vector2Int start = LevelCreator.PosToCoord(_jumper.rb.position);
+                    Vector2Int start = LevelCreator.PosToCoord(Jumper.rb.position);
                     Vector2Int goal = LevelCreator.LevelData.GoalPos.Value;
                     _path = GraphSolver.SolveForPath(_graph, start, goal);
                 }
@@ -72,9 +73,9 @@ public class PathFollower : MonoBehaviour
     private IEnumerator DelayedJump(GraphEdge edge)
     {
         _state = FollowState.Charging;
-        _jumper.JumpChargeTrigger();
+        Jumper.JumpChargeTrigger();
         yield return new WaitForSeconds(1f);
-        _jumper.InstantJump(edge.isDirLeft, edge.jumpStrength);
+        Jumper.InstantJump(edge.isDirLeft, edge.jumpStrength);
         targetCoord = edge.dest;
         _state = FollowState.Jumping;
     }
@@ -92,8 +93,8 @@ public class PathFollower : MonoBehaviour
             return;
         _path = path;
         _graph = graph;
-        _jumper = Instantiate(_settings.PlayerPrefab);
-        _jumper.transform.position = LevelCreator.GraphCoordToPos(path[0].source);
+        Jumper = Instantiate(_settings.PlayerPrefab);
+        Jumper.transform.position = LevelCreator.GraphCoordToPos(path[0].source);
         _state = FollowState.Ready;
         targetCoord = _path[0].source;
         _startedPlaying = true;
@@ -104,13 +105,14 @@ public class PathFollower : MonoBehaviour
         JumpController.OnGoalReached -= ReactToVictory;
         Debug.Log("Victory screeeech!");
         _path = null;
-        CameraController.Streamer.TriggerAnim(4);
+        CameraController.Streamer.TriggerAnim(3);
         StartCoroutine(DelayedVictorySwitch());
     }
 
     private IEnumerator DelayedVictorySwitch()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(5f);
+        Destroy(Jumper.gameObject);
         GameManager.ChangeGameState(GameState.EditingLevel);
     }
 

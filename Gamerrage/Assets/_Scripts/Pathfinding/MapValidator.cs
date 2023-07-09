@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class MapValidator : MonoBehaviour
 {
-    public static Vector2 FollowerPos => Instance.follower.transform.position;
+    public static Vector2 FollowerPos => Instance.follower.Jumper.transform.position;
     public static Action<MapGraph> callback;
     public MapGraph Graph;
     [field: SerializeField] private bool DrawGizmos;

@@ -18,6 +18,7 @@ public class JumpController : MonoBehaviour
     private GameSettings _settings;
     private bool _upwardsDir;
     private bool _canLand;
+    private bool _isValidator = false;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -46,7 +47,10 @@ public class JumpController : MonoBehaviour
         _currentCharge = _settings.JumpStrengthRange.x;
         OnStartedCharging?.Invoke();
     }
-
+    public void SetValidator(bool isValidator)
+    {
+        _isValidator = isValidator;
+    }
     public void JumpChargeTrigger()
     {
         OnStartedCharging?.Invoke();
@@ -64,7 +68,7 @@ public class JumpController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Goal")
+        if (!_isValidator && other.tag == "Goal")
         {
             other.GetComponent<ParticleSystem>()?.Play();
             OnGoalReached?.Invoke();

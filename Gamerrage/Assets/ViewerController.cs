@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 public class ViewerController : MonoBehaviour
 {
     float nextMessageTime = 0.5f;
@@ -45,8 +45,10 @@ public class ViewerController : MonoBehaviour
         return false;
     }
 
-    IEnumerator Loop(){
-        while(true){
+    IEnumerator Loop()
+    {
+        while (true)
+        {
             yield return new WaitForSecondsRealtime(1);
             testCounter += 1;
             if (CheckProgress())
