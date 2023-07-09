@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-
 public class MenuManager : MonoBehaviour
 {
     public static MenuManager Instance { get; private set; }

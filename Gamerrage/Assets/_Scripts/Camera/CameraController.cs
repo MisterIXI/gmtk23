@@ -1,15 +1,27 @@
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static GameState;
 
 public class CameraController : MonoBehaviour
 {
     [field: SerializeField] private Transform _background;
     [field: SerializeField] private Transform _middleGound;
     private GameSettings _settings;
+    private Camera _cam;
+    public static CameraController Instance { get; private set; }
+
     private void Awake()
     {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+        SubscribeEvents();
         _settings = SettingsHolder.Instance.GameSettings;
+        _cam = GetComponent<Camera>();
     }
     private void Update()
     {
@@ -37,18 +49,35 @@ public class CameraController : MonoBehaviour
         ConstraintToBounds();
         ParallaxBackGrounds();
     }
-
+    private void OnGameStateChange(GameState oldState, GameState newState)
+    {
+        if (newState == StreamerPlaying)
+        {
+            _cam.orthographicSize = 8;
+            Vector3 pos = transform.position;
+            pos.x = 14.6f;
+            transform.position = pos;
+        }
+        else if (oldState == StreamerPlaying)
+        {
+            _cam.orthographicSize = 7;
+            Vector3 pos = transform.position;
+            pos.x = 12.5f;
+            transform.position = pos;
+        }
+    }
     private void ConstraintToBounds()
     {
+        Vector2 bounds = GameManager.GameState == StreamerPlaying ? _settings.CameraYBoundsStreamer : _settings.CameraYBoundsEditor;
         Vector3 position = transform.position;
-        if (position.y < _settings.CameraYBounds.x)
+        if (position.y < bounds.x)
         {
-            position.y = _settings.CameraYBounds.x;
+            position.y = bounds.x;
             transform.position = position;
         }
-        if (position.y > _settings.CameraYBounds.y)
+        if (position.y > bounds.y)
         {
-            position.y = _settings.CameraYBounds.y;
+            position.y = bounds.y;
             transform.position = position;
         }
     }
@@ -64,7 +93,20 @@ public class CameraController : MonoBehaviour
         _middleGound.position = pos2;
     }
 
+    private void SubscribeEvents()
+    {
+        GameManager.OnGameStateChange += OnGameStateChange;
+    }
+
+    private void UnSubscribeEvents()
+    {
+        GameManager.OnGameStateChange -= OnGameStateChange;
+    }
     private void OnDestroy()
     {
+        if (Instance == this)
+            Instance = null;
+
+        UnSubscribeEvents();
     }
 }

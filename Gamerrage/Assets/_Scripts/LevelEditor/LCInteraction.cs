@@ -74,6 +74,8 @@ public class LCInteraction : MonoBehaviour
 
     private void OnMousePosInput(InputAction.CallbackContext context)
     {
+        if (GameManager.GameState != GameState.EditingLevel)
+            return;
         if (!LevelCreator.IsReady)
             return;
         if (context.performed)
@@ -105,6 +107,8 @@ public class LCInteraction : MonoBehaviour
 
     private void OnLMBInput(InputAction.CallbackContext context)
     {
+        if (GameManager.GameState != GameState.EditingLevel)
+            return;
         if (!LevelCreator.IsReady)
             return;
         if (context.started && !IsRMBDown)
@@ -125,6 +129,8 @@ public class LCInteraction : MonoBehaviour
     }
     private void OnRMBInput(InputAction.CallbackContext context)
     {
+        if (GameManager.GameState != GameState.EditingLevel)
+            return;
         if (!LevelCreator.IsReady)
             return;
         if (context.started && !IsLMBDown)
@@ -138,6 +144,8 @@ public class LCInteraction : MonoBehaviour
 
     private void OnScrollInput(InputAction.CallbackContext context)
     {
+        if (GameManager.GameState != GameState.EditingLevel)
+            return;
         if (!LevelCreator.IsReady)
             return;
         if (context.performed)
@@ -157,16 +165,31 @@ public class LCInteraction : MonoBehaviour
             OnBlockTypeChanged?.Invoke(oldType, currentBlockType);
         }
     }
+    private void OnGameStateChange(GameState oldstate, GameState newstate)
+    {
+        if (newstate != GameState.EditingLevel)
+        {
+            if (currentCoord != Vector2Int.zero)
+            {
+                Vector2Int? oldCoord = currentCoord;
+                currentCoord = Vector2Int.zero;
+                OnInteractionCoordChanged?.Invoke(oldCoord, Vector2Int.zero);
+                CheckForInteractionOnPosChange();
+            }
+        }
+    }
     private void SubscribeEvents()
     {
         OnBlockTypeChanged += UpdatePreviewType;
         OnInteractionCoordChanged += UpdatePreviewCoord;
+        GameManager.OnGameStateChange += OnGameStateChange;
     }
 
     private void UnSubscribeEvents()
     {
         OnBlockTypeChanged -= UpdatePreviewType;
         OnInteractionCoordChanged -= UpdatePreviewCoord;
+        GameManager.OnGameStateChange -= OnGameStateChange;
     }
     private void SubscribeInputs()
     {

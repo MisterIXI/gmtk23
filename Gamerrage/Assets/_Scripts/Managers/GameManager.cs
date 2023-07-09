@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
             return;
         GameState oldstate = _state;
         _state = newState;
+
         // when pausing
         if (newState == Paused)
         {
@@ -50,10 +51,12 @@ public class GameManager : MonoBehaviour
         // switching to streamer first time
         if (oldstate == Validating && newState == StreamerPlaying)
         {
+            MenuManager.SwitchMenu(MenuState.HUD);
             MapValidator.Instance.FindAndFollowPath();
         }
         OnGameStateChange?.Invoke(oldstate, _state);
     }
+
 
     public void UpdateValidationState(bool IsValidAndReady)
     {
