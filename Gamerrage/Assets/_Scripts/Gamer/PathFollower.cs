@@ -97,6 +97,21 @@ public class PathFollower : MonoBehaviour
         _state = FollowState.Ready;
         targetCoord = _path[0].source;
         _startedPlaying = true;
+        JumpController.OnGoalReached += ReactToVictory;
+    }
+    private void ReactToVictory()
+    {
+        JumpController.OnGoalReached -= ReactToVictory;
+        Debug.Log("Victory screeeech!");
+        _path = null;
+        CameraController.Streamer.TriggerAnim(4);
+        StartCoroutine(DelayedVictorySwitch());
+    }
+
+    private IEnumerator DelayedVictorySwitch()
+    {
+        yield return new WaitForSeconds(2f);
+        GameManager.ChangeGameState(GameState.EditingLevel);
     }
 
     private void OnDrawGizmos()
