@@ -20,3 +20,5 @@ MonoBehaviour:
   <TimeToHoldStill>k__BackingField: 1
   <WaddleSpeed>k__BackingField: 0.01
   <WaddleVariance>k__BackingField: 0.1
+  <FallingDistressThreshhold>k__BackingField: 2.17
+  <FallingSplatThreshhold>k__BackingField: 5
