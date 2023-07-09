@@ -1616,27 +1616,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '
-
-    Scroll Wheel: Change Block to Place
-
-
-    Left Click: Place Tile
-
-
-    Right
-    Click: Remove Tile
-
-
-    Pause: Escape (ESC) or Press (Q)
-
-
-
-    Place Froggo
-    and Froggette. Build a difficult Level. Don''t make it too easy for xXx_cha0sGamer_xXx!
-
-
-'
+  m_text: "\nScroll Wheel or 1 and 2: \nChange Block to Place\n\nLeft Click: Place
+    Tile\n\nRight Click: Remove Tile\n\nPause: Escape (ESC) or Press (Q)\n\n\nPlace
+    Froggo and Froggette. Build a difficult Level. Don't make it too easy for xXx_cha0sGamer_xXx!\n\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0d91c723f08280f4a9db0a841efcf184, type: 2}
   m_sharedMaterial: {fileID: 299587867462415267, guid: 0d91c723f08280f4a9db0a841efcf184,
@@ -5482,7 +5464,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &319872305656261784
 RectTransform:
   m_ObjectHideFlags: 0
