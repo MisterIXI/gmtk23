@@ -14,6 +14,10 @@ public class GameSettings : ScriptableObject
     [field: Header("Animation Settings")]
     [field: SerializeField][field: Range(0f, 20f)] public float FallingDistressThreshhold { get; private set; } = 0.5f;
     [field: SerializeField][field: Range(0f, 20f)] public float FallingSplatThreshhold { get; private set; } = 1f;
+    [field: SerializeField][field: Range(0.5f, 10f)] public float EyeCD { get; private set; } = 0.5f;
+    [field: SerializeField][field: Range(0.5f, 10f)] public float EyebrowCD { get; private set; } = 0.5f;
+    [field: SerializeField][field: Range(0.5f, 10f)] public float MouthCD { get; private set; } = 0.5f;
+    [field: SerializeField][field: Range(0.5f, 10f)] public float PoseCD { get; private set; } = 10f;
     [field: Header("Camera settings")]
     [field: SerializeField][field: Range(1, 50)] public int PixelScrollZone { get; private set; } = 15;
     [field: SerializeField][field: Range(0.01f, 100f)] public float ScrollSpeed { get; private set; } = 10f;
@@ -21,5 +25,7 @@ public class GameSettings : ScriptableObject
     [field: SerializeField] public Vector2 CameraYBoundsStreamer { get; private set; } = new(4.83f, 46.12f);
     [field: SerializeField][field: Range(0.01f, 1f)] public float BackGroundParallaxMult = 0.7f;
     [field: SerializeField][field: Range(0.01f, 1f)] public float MiddleGroundParallaxMult = 0.3f;
+
+
 
 }

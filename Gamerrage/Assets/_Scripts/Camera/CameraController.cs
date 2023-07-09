@@ -10,7 +10,7 @@ public class CameraController : MonoBehaviour
     private GameSettings _settings;
     private Camera _cam;
     public static CameraController Instance { get; private set; }
-
+    [field: SerializeField] private StreamerAnimator _streamer;
     private void Awake()
     {
         if (Instance != null)
@@ -57,9 +57,11 @@ public class CameraController : MonoBehaviour
             Vector3 pos = transform.position;
             pos.x = 14.6f;
             transform.position = pos;
+            _streamer.gameObject.SetActive(true);
         }
         else if (oldState == StreamerPlaying)
         {
+            _streamer.gameObject.SetActive(false);
             _cam.orthographicSize = 7;
             Vector3 pos = transform.position;
             pos.x = 12.5f;
