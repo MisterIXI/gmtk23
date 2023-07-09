@@ -1231,6 +1231,7 @@ GameObject:
   - component: {fileID: 7578329882348395778}
   - component: {fileID: 8346393110249531715}
   - component: {fileID: 7177449320032481797}
+  - component: {fileID: 1574640016428305181}
   m_Layer: 0
   m_Name: HUD
   m_TagString: Untagged
@@ -1291,6 +1292,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f4dbfd10b7c5394f96802cf7137936a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1574640016428305181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2631699135279553188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c4f0af29c1fac8408a80a327b5a06f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  testCounter: 0
+  viewerCounter: 0
+  <ViewerCounterLabel>k__BackingField: {fileID: 271120951936907275}
 --- !u!1 &2638583264232183544
 GameObject:
   m_ObjectHideFlags: 0
@@ -2270,19 +2286,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6457862719034774145
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4448945839794265827}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShowMaskGraphic: 0
 --- !u!1 &5377960002680987583
 GameObject:
   m_ObjectHideFlags: 0
