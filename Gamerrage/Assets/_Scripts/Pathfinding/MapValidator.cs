@@ -6,28 +6,56 @@ using UnityEngine;
 
 public class MapValidator : MonoBehaviour
 {
+    public static Vector2 FollowerPos => Instance.follower.transform.position;
     public static Action<MapGraph> callback;
     public MapGraph Graph;
     [field: SerializeField] private bool DrawGizmos;
     private PathFindingAgent agent;
     private PathFollower follower;
+    public static MapValidator Instance { get; private set; }
     private void Awake()
+    {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+        CreateAgent();
+        callback += ReceiveGraph;
+    }
+
+    public void ResetValidation()
+    {
+        Destroy(agent.gameObject);
+        Graph = null;
+        CreateAgent();
+    }
+
+    private void CreateAgent()
     {
         agent = new GameObject("PathFindingAgent").AddComponent<PathFindingAgent>();
         follower = agent.gameObject.AddComponent<PathFollower>();
-    }
-    public void TestGraph()
-    {
-        callback += ReceiveGraph;
-        Graph = ValidateAndMapLevelData(callback, LevelCreator.LevelData);
-
+        agent.transform.parent = transform.parent;
     }
 
     private void ReceiveGraph(MapGraph graph)
     {
+        if (graph == null)
+            GameManager.ChangeGameState(GameState.EditingLevel);
         Graph = graph;
+        Vector2Int start = LevelCreator.LevelData.PlayerPos.Value;
+        Vector2Int goal = LevelCreator.LevelData.GoalPos.Value;
+        var path = GraphSolver.SolveForPath(Graph, start, goal);
+        if (path != null)
+        {
+            GameManager.ChangeGameState(GameState.StreamerPlaying);
+        }
+        else
+        {
+            GameManager.ChangeGameState(GameState.EditingLevel);
+        }
         Debug.Log("Received Graph!");
-        callback -= ReceiveGraph;
     }
     public void FindAndFollowPath()
     {
@@ -36,19 +64,25 @@ public class MapValidator : MonoBehaviour
         follower.PlayPath(Graph, GraphSolver.SolveForPath(Graph, start, goal));
     }
 
-    public MapGraph ValidateAndMapLevelData(Action<MapGraph> callback, LevelData levelData)
+    public void ValidateAndMapLevelData()
     {
-        if (!levelData.HasGoalAndPlayerBlocks())
+        if (!LevelCreator.LevelData.HasGoalAndPlayerBlocks())
         {
             Debug.LogWarning("Player or Goal block are missing. Aborting...");
-            return null;
+            ReceiveGraph(null);
+            return;
         }
-        MapGraph graph = new MapGraph(levelData);
+        ResetValidation();
+        MapGraph graph = new MapGraph(LevelCreator.LevelData);
         // agent.transform.parent = transform.parent;
-        agent.ExploreLevelData(callback, graph, LevelCreator.LevelData);
-        return graph;
+        agent.ExploreLevelData(ReceiveGraph, graph, LevelCreator.LevelData);
     }
-
+    private void OnDestroy()
+    {
+        if (Instance == this)
+            Instance = null;
+        callback -= ReceiveGraph;
+    }
 
     [field: SerializeField] private int GizmoPaths;
 

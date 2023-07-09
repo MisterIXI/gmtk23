@@ -1131,6 +1131,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7578329882348395778}
   - component: {fileID: 8346393110249531715}
+  - component: {fileID: 7177449320032481797}
   m_Layer: 0
   m_Name: HUD
   m_TagString: Untagged
@@ -1176,6 +1177,18 @@ MonoBehaviour:
   <InputField>k__BackingField: {fileID: 738063390909699505, guid: 3eec5917bd5ca4844a7da0865c00e5ac,
     type: 3}
   MaxMessages: 25
+--- !u!114 &7177449320032481797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2631699135279553188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f4dbfd10b7c5394f96802cf7137936a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2638583264232183544
 GameObject:
   m_ObjectHideFlags: 0
@@ -2133,6 +2146,55 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 0
+--- !u!1 &5377960002680987583
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8760838406642019036}
+  - component: {fileID: 2655155239226503561}
+  m_Layer: 0
+  m_Name: EditingUI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &8760838406642019036
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5377960002680987583}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7294190168250738400}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2655155239226503561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5377960002680987583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3603e5ae482750b4386a8ef0f7899323, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5432096491706381032
 GameObject:
   m_ObjectHideFlags: 0
@@ -3051,6 +3113,7 @@ RectTransform:
   - {fileID: 2339856466358891889}
   - {fileID: 319872305656261784}
   - {fileID: 7578329882348395778}
+  - {fileID: 8760838406642019036}
   - {fileID: 5912621266307220951}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -3137,8 +3200,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <EventSystem>k__BackingField: {fileID: 1730272485843067837}
   <MainMenu>k__BackingField: {fileID: 5660272115966979845}
-  <Editor>k__BackingField: {fileID: 0}
-  <HUD>k__BackingField: {fileID: 0}
+  <Editor>k__BackingField: {fileID: 2655155239226503561}
+  <HUD>k__BackingField: {fileID: 7177449320032481797}
   <Pause>k__BackingField: {fileID: 3666149157095695495}
   <Controls>k__BackingField: {fileID: 6388325193685468998}
   <Credits>k__BackingField: {fileID: 7334826485090636362}

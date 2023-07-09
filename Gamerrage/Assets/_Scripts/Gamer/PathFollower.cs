@@ -14,6 +14,7 @@ public class PathFollower : MonoBehaviour
     private Vector2Int targetCoord;
     private FollowState _state;
     private Vector2 _waddleTarget;
+    private bool _startedPlaying;
     private void Awake()
     {
         _settings = SettingsHolder.Instance.GameSettings;
@@ -87,12 +88,15 @@ public class PathFollower : MonoBehaviour
     }
     public void PlayPath(MapGraph graph, List<GraphEdge> path)
     {
+        if (_startedPlaying)
+            return;
         _path = path;
         _graph = graph;
         _jumper = Instantiate(_settings.PlayerPrefab);
         _jumper.transform.position = LevelCreator.GraphCoordToPos(path[0].source);
         _state = FollowState.Ready;
         targetCoord = _path[0].source;
+        _startedPlaying = true;
     }
 
     private void OnDrawGizmos()

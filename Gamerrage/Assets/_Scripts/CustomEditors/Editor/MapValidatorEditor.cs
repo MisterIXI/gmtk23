@@ -13,7 +13,7 @@ public class MapValidatorEditor : Editor
             GUI.enabled = false;
         if (GUILayout.Button("ValidateMap"))
         {
-            validator.TestGraph();
+            // validator.TestGraph();
         }
         if (GUILayout.Button("PlayPath"))
         {

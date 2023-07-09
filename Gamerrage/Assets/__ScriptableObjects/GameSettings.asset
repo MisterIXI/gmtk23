@@ -22,3 +22,6 @@ MonoBehaviour:
   <WaddleVariance>k__BackingField: 0.1
   <FallingDistressThreshhold>k__BackingField: 2.17
   <FallingSplatThreshhold>k__BackingField: 5
+  <PixelScrollZone>k__BackingField: 15
+  <ScrollSpeed>k__BackingField: 10
+  <CameraYBounds>k__BackingField: {x: 6.84, y: 47}
