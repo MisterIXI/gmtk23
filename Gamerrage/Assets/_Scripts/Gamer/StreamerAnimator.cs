@@ -35,22 +35,22 @@ public class StreamerAnimator : MonoBehaviour
         if (_tEye > Time.time)
         {
             _tEye = Time.time + _settings.EyeCD * Random.value;
+            int randomInt = Random.Range(0, 4);
+            Material mat = _eye_normal;
+            switch (randomInt)
+            {
+                case 0:
+                    mat = _eye_normal;
+                    break;
+                case 1:
+                    mat = _eye_straight;
+                    break;
+                case 2:
+                    mat = _eye_surprised;
+                    break;
+            }
             foreach (var eye in _eyes)
             {
-                int randomInt = Random.Range(0, 4);
-                Material mat = _eye_normal;
-                switch (randomInt)
-                {
-                    case 0:
-                        mat = _eye_normal;
-                        break;
-                    case 1:
-                        mat = _eye_straight;
-                        break;
-                    case 2:
-                        mat = _eye_surprised;
-                        break;
-                }
                 eye.material = mat;
             }
         }
