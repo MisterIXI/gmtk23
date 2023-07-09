@@ -15,7 +15,6 @@ public class MenuManager : MonoBehaviour
 
     public MenuBase CurrentMenu { get; private set; }
     public MenuBase PreviousMenu { get; private set; }
-
     private void Awake()
     {
         if (Instance != null)
@@ -28,28 +27,20 @@ public class MenuManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         MainMenu.Init();
-        // Editor.Init();
-        // HUD.Init();
+        Editor.Init();
+        HUD.Init();
         Pause.Init();
         Controls.Init();
         Credits.Init();
-
-        // InputManager.OnPause += OnPauseButtonInput;
+        CurrentMenu = MainMenu;
+        InputManager.OnPause += OnPauseButtonInput;
     }
 
-    // private void OnPauseButtonInput(InputAction.CallbackContext context)
-    // {
-    //     if (GameManager.GameState == GameState.Playing)
-    //     {
-    //         GameManager.ChangeGameState(GameState.Paused);
-    //         SwitchMenu(MenuState.Pause);
-    //     }
-    //     else if (GameManager.GameState == GameState.Paused)
-    //     {
-    //         GameManager.ChangeGameState(GameState.Playing);
-    //         SwitchMenu(MenuState.HUD);
-    //     }
-    // }
+    private void OnPauseButtonInput(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+            Pause.PauseInput();
+    }
     public static void SwitchMenu(MenuState menuState)
     {
         Debug.Log($"Switching to {menuState}");

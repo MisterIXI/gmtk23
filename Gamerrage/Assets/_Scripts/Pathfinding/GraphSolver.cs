@@ -68,7 +68,7 @@ class GraphSolver
         if (!goalFound)
         {
             Debug.LogWarning("No Path found...");
-            return resultPath;
+            return null;
         }
         // try to reconstruct path
         current = goal;

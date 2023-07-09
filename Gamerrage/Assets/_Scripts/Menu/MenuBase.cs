@@ -1,10 +1,14 @@
 using UnityEngine;
 public abstract class MenuBase : MonoBehaviour
 {
+
     public virtual void Init()
     {
         // Override this method to initialize the even when turned off
     }
+
+    private GameState _prePauseState;
+
     protected void ToMainMenu()
     {
         if (MenuManager.Instance.CurrentMenu == MenuManager.Instance.MainMenu)
@@ -13,6 +17,29 @@ public abstract class MenuBase : MonoBehaviour
             return;
         }
         MenuManager.SwitchMenu(MenuState.Main);
+    }
+
+    public void PauseInput()
+    {
+        if (GameManager.GameState == GameState.EditingLevel || GameManager.GameState == GameState.StreamerPlaying)
+        {
+            _prePauseState = GameManager.GameState;
+            GameManager.ChangeGameState(GameState.Paused);
+            MenuManager.SwitchMenu(MenuState.Pause);
+        }
+        else if (GameManager.GameState == GameState.Paused)
+        {
+            GameManager.ChangeGameState(_prePauseState);
+            if (_prePauseState == GameState.EditingLevel)
+                MenuManager.SwitchMenu(MenuState.Editor);
+            else
+                MenuManager.SwitchMenu(MenuState.HUD);
+        }
+    }
+
+    protected void UnPause()
+    {
+
     }
 
     protected void ToEditorMenu()

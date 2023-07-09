@@ -14,5 +14,11 @@ public class GameSettings : ScriptableObject
     [field: Header("Animation Settings")]
     [field: SerializeField][field: Range(0f, 20f)] public float FallingDistressThreshhold { get; private set; } = 0.5f;
     [field: SerializeField][field: Range(0f, 20f)] public float FallingSplatThreshhold { get; private set; } = 1f;
+    [field: Header("Camera settings")]
+    [field: SerializeField][field: Range(1, 50)] public int PixelScrollZone { get; private set; } = 15;
+    [field: SerializeField][field: Range(0.01f, 100f)] public float ScrollSpeed { get; private set; } = 10f;
+    [field: SerializeField] public Vector2 CameraYBounds { get; private set; } = new(5, 50);
+    [field: SerializeField][field: Range(0.01f, 1f)] public float BackGroundParallaxMult = 0.7f;
+    [field: SerializeField][field: Range(0.01f, 1f)] public float MiddleGroundParallaxMult = 0.3f;
 
 }

@@ -11,18 +11,22 @@ public class MainMenu : MenuBase
 
     public override void Init()
     {
-        StartGameButton.onClick.AddListener(ToEditorMenu);
+        StartGameButton.onClick.AddListener(OnStartButton);
         ControlsButton.onClick.AddListener(ToControlsMenu);
         CreditsButton.onClick.AddListener(ToCreditsMenu);
         PauseTestButton.onClick.AddListener(ToPauseMenu);
         if (Application.platform == RuntimePlatform.WebGLPlayer)
             DisableQuitButton();
-        #if UNITY_EDITOR    
-            DisableQuitButton();
-        #endif
+#if UNITY_EDITOR
+        DisableQuitButton();
+#endif
         QuitButton.onClick.AddListener(QuitGame);
     }
-
+    private void OnStartButton()
+    {
+        GameManager.ChangeGameState(GameState.EditingLevel);
+        ToEditorMenu();
+    }
     private void DisableQuitButton()
     {
         QuitButton.interactable = false;
