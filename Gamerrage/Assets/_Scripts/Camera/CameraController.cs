@@ -36,7 +36,7 @@ public class CameraController : MonoBehaviour
             //     dir.x = 1;
             if (pos.y < _settings.PixelScrollZone)
                 dir.y = -1;
-            else if (pos.y > Screen.currentResolution.height - _settings.PixelScrollZone)
+            else if (pos.y > Screen.height - _settings.PixelScrollZone)
                 dir.y = 1;
             transform.position += (Vector3)(dir * Time.deltaTime * _settings.ScrollSpeed);
         }

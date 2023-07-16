@@ -98,14 +98,21 @@ public class LCInteraction : MonoBehaviour
     }
     private void TryPlacingBlock()
     {
+        if(GameManager.GameState != GameState.EditingLevel)
+            return;
         if (currentCoord != null && levelData.IsValidBlockPos(currentCoord.Value, currentBlockType))
         {
+            if (IsMouseOverUI())
+                return;
             levelData.SetBlock(currentCoord.Value, currentBlockType);
             OnBlockPlaced?.Invoke(currentCoord, currentBlockType);
             // Debug.Log($"Placed block {currentBlockType} at {currentCoord.Value}");
         }
     }
-
+    private bool IsMouseOverUI()
+    {
+        return UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject();
+    }
     private void OnLMBInput(InputAction.CallbackContext context)
     {
         if (GameManager.GameState != GameState.EditingLevel)
