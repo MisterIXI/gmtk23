@@ -10,10 +10,12 @@ public class MapValidator : MonoBehaviour
     public static Action<MapGraph> callback;
     public MapGraph Graph;
     [field: SerializeField] private bool DrawGizmos;
-    private PathFindingAgent agent;
     private PathFollower follower;
     public string RejectionReason;
     public static MapValidator Instance { get; private set; }
+    private IEnumerator<Vector2Int> _coordIter;
+    private LinkedList<PathFindingAgent> _activeAgents = new LinkedList<PathFindingAgent>();
+    private LinkedList<PathFindingAgent> _inactiveAgents = new LinkedList<PathFindingAgent>();
     private void Awake()
     {
         if (Instance != null)
@@ -22,23 +24,39 @@ public class MapValidator : MonoBehaviour
             return;
         }
         Instance = this;
-        CreateAgent();
+        CreateAgents();
         callback += ReceiveGraph;
     }
 
     public void ResetValidation()
     {
         ResetReachableBlocks();
-        Destroy(agent.gameObject);
+        Destroy(follower.gameObject);
+        foreach (var agent in _inactiveAgents)
+        {
+            Destroy(agent.gameObject);
+        }
+        _inactiveAgents.Clear();
+        foreach (var agent in _activeAgents)
+        {
+            Destroy(agent.gameObject);
+        }
+        _activeAgents.Clear();
         Graph = null;
-        CreateAgent();
+        CreateAgents();
     }
 
-    private void CreateAgent()
+    private void CreateAgents()
     {
-        agent = new GameObject("PathFindingAgent").AddComponent<PathFindingAgent>();
-        follower = agent.gameObject.AddComponent<PathFollower>();
-        agent.transform.parent = transform.parent;
+        follower = new GameObject("PathFollower").AddComponent<PathFollower>();
+        follower.transform.parent = transform;
+        for (int i = 0; i < SettingsHolder.Instance.UtilitySettings.PathingAgentCount; i++)
+        {
+            PathFindingAgent agent = new GameObject($"PathFindingAgent_{i + 1}").AddComponent<PathFindingAgent>();
+            agent.transform.parent = transform;
+            agent.gameObject.SetActive(false);
+            _inactiveAgents.AddLast(agent);
+        }
     }
 
     private void ReceiveGraph(MapGraph graph)
@@ -119,7 +137,43 @@ public class MapValidator : MonoBehaviour
         ResetValidation();
         MapGraph graph = new MapGraph(LevelCreator.LevelData);
         // agent.transform.parent = transform.parent;
-        agent.ExploreLevelData(ReceiveGraph, graph, LevelCreator.LevelData);
+        Time.timeScale = 100;
+        _coordIter = graph.CoordIterator();
+        while(_inactiveAgents.Count > 0)
+        {
+            if (!_coordIter.MoveNext())
+                break;
+            PathFindingAgent agent = _inactiveAgents.First.Value;
+            _inactiveAgents.RemoveFirst();
+            _activeAgents.AddLast(agent);
+            agent.gameObject.SetActive(true);
+            agent.ExploreCoordJumpingPaths(OnAgentFinished, graph, LevelCreator.LevelData, _coordIter.Current);
+        }
+    }
+
+    private void OnAgentFinished(PathFindingAgent agent, MapGraph graph)
+    {
+        Debug.Log($"Agent {agent.name} finished!");
+        if (!_coordIter.MoveNext())
+        {
+            Debug.Log("All nodes distributed to agents");
+            // all nodes distributed to agents
+            agent.gameObject.SetActive(false);
+            _inactiveAgents.AddLast(agent);
+            _activeAgents.Remove(agent);
+            if (_activeAgents.Count == 0)
+            {
+                Debug.Log("All agents finished!");
+                _coordIter.Dispose();
+                _coordIter = null;
+                Time.timeScale = 1;
+                ReceiveGraph(graph);
+            }
+        }
+        else
+        {
+            agent.ExploreCoordJumpingPaths(OnAgentFinished, graph, LevelCreator.LevelData, _coordIter.Current);
+        }
     }
     private IEnumerator delayedReject()
     {

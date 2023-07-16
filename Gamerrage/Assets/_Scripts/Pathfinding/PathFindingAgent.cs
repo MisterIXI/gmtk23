@@ -55,13 +55,13 @@ public class PathFindingAgent : MonoBehaviour
         else
             _holdingStillCounter = 0;
     }
-    public void ExploreLevelData(Action<MapGraph> callback, MapGraph graph, LevelData levelData)
+    public void ExploreCoordJumpingPaths(Action<PathFindingAgent, MapGraph> callback, MapGraph graph, LevelData levelData, Vector2Int coord)
     {
         coordPairs = new HashSet<CoordPair>();
         _graph = graph;
         _levelData = levelData;
         _jumper = Instantiate(_settings.PlayerPrefab);
-        _iter = JumpIterator(graph.NodeIterator(), callback);
+        _iter = JumpIterator(coord, callback);
         _iter.MoveNext();
         _jumper.SetValidator(true);
     }
@@ -74,40 +74,34 @@ public class PathFindingAgent : MonoBehaviour
         _jumper.InstantJump(jumpLeft, strength);
     }
 
-    private IEnumerator JumpIterator(IEnumerator<GraphNode> inner_iter, Action<MapGraph> callback)
+    private IEnumerator JumpIterator(Vector2Int coord, Action<PathFindingAgent, MapGraph> callback)
     {
         // Debug.Log("Jumpiter start");
-        Time.timeScale = 100;
         float strengthStep = (_settings.JumpStrengthRange.y - _settings.JumpStrengthRange.x) / _settings.AutoJumpTestSteps;
-        while (inner_iter.MoveNext())
+        _currentNode = _graph.GetGraphNode(coord);
+        _jumpingLeft = true;
+        _currentStrength = _settings.JumpStrengthRange.x;
+        _currentCoord = coord;
+        for (int i = 0; i < _settings.AutoJumpTestSteps; i++)
         {
-            _currentNode = inner_iter.Current;
-            foreach (var coord in _currentNode.points)
-            {
-                _jumpingLeft = true;
-                _currentStrength = _settings.JumpStrengthRange.x;
-                _currentCoord = coord;
-                for (int i = 0; i < _settings.AutoJumpTestSteps; i++)
-                {
-                    NextJump(LevelCreator.CoordToPos(coord + Vector2Int.up), _jumpingLeft, _currentStrength);
-                    yield return null;
-                    _currentStrength += strengthStep;
-                }
-                _jumpingLeft = false;
-                _currentStrength = _settings.JumpStrengthRange.x;
-                _currentCoord = coord;
-                for (int i = 0; i < _settings.AutoJumpTestSteps; i++)
-                {
-                    NextJump(LevelCreator.CoordToPos(coord + Vector2Int.up), _jumpingLeft, _currentStrength);
-                    yield return null;
-                    _currentStrength += strengthStep;
-                }
-            }
+            NextJump(LevelCreator.CoordToPos(coord + Vector2Int.up), _jumpingLeft, _currentStrength);
+            yield return null;
+            _currentStrength += strengthStep;
         }
-        Time.timeScale = 1;
-        callback?.Invoke(_graph);
-        _graph = null;
+        _jumpingLeft = false;
+        _currentStrength = _settings.JumpStrengthRange.x;
+        _currentCoord = coord;
+        for (int i = 0; i < _settings.AutoJumpTestSteps; i++)
+        {
+            NextJump(LevelCreator.CoordToPos(coord + Vector2Int.up), _jumpingLeft, _currentStrength);
+            yield return null;
+            _currentStrength += strengthStep;
+        }
+        _currentNode = null;
         Destroy(_jumper.gameObject);
+        MapGraph returnGraph = _graph;
+        _graph = null;
+        callback?.Invoke(this, returnGraph);
     }
 
     private void OnDrawGizmos()

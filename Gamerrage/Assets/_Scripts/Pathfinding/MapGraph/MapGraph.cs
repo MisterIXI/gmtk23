@@ -56,7 +56,16 @@ public class MapGraph
         }
         return null;
     }
-
+    public IEnumerator<Vector2Int> CoordIterator()
+    {
+        foreach (var node in Nodes)
+        {
+            foreach (var coord in node.points)
+            {
+                yield return coord;
+            }
+        }
+    }
     public IEnumerator<GraphNode> NodeIterator()
     {
         foreach (var node in Nodes)

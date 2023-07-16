@@ -102,7 +102,7 @@ public class LCInteraction : MonoBehaviour
         {
             levelData.SetBlock(currentCoord.Value, currentBlockType);
             OnBlockPlaced?.Invoke(currentCoord, currentBlockType);
-            Debug.Log($"Placed block {currentBlockType} at {currentCoord.Value}");
+            // Debug.Log($"Placed block {currentBlockType} at {currentCoord.Value}");
         }
     }
 
