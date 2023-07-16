@@ -28,6 +28,7 @@ public class MapValidator : MonoBehaviour
 
     public void ResetValidation()
     {
+        ResetReachableBlocks();
         Destroy(agent.gameObject);
         Graph = null;
         CreateAgent();
@@ -45,6 +46,7 @@ public class MapValidator : MonoBehaviour
         RejectionReason = "No path found...";
         if (graph == null)
         {
+            Debug.LogWarning("Received null graph. Aborting...");
             GameManager.ChangeGameState(GameState.EditingLevel);
             return;
         }
@@ -58,9 +60,44 @@ public class MapValidator : MonoBehaviour
         }
         else
         {
+            MarkReachableBlocks();
             GameManager.ChangeGameState(GameState.EditingLevel);
         }
         Debug.Log("Received Graph!");
+    }
+
+    private void MarkReachableBlocks()
+    {
+        if (Graph == null)
+            return;
+        HashSet<Vector2Int> visited = new HashSet<Vector2Int>();
+        Stack<Vector2Int> toMark = new Stack<Vector2Int>();
+        LevelData levelData = LevelCreator.LevelData;
+        Vector2Int current = levelData.PlayerPos.Value + Vector2Int.down;
+        toMark.Push(current);
+        while (toMark.Count > 0)
+        {
+            current = toMark.Pop();
+            if (visited.Contains(current))
+                continue;
+            levelData.blocks[current].SetPreviewState(true, true);
+            Debug.Log($"Marking {current}");
+            visited.Add(current);
+            foreach (var edge in Graph.NodeLookupTable[current].JumpEdges)
+            {
+                if (edge.source == current && !visited.Contains(edge.dest))
+                    toMark.Push(edge.dest);
+            }
+        }
+    }
+    private void ResetReachableBlocks()
+    {
+        LevelData levelData = LevelCreator.LevelData;
+        foreach (BaseBlock block in levelData.blocks.GetArr())
+        {
+            if (block != null)
+                block.SetPreviewState(false);
+        }
     }
     public void FindAndFollowPath()
     {
@@ -71,6 +108,7 @@ public class MapValidator : MonoBehaviour
 
     public void ValidateAndMapLevelData()
     {
+        ResetReachableBlocks();
         if (!LevelCreator.LevelData.HasGoalAndPlayerBlocks())
         {
             Debug.LogWarning("Player or Goal block are missing. Aborting...");

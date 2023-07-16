@@ -23,5 +23,6 @@ public class VectorArray<T>
         set { arr[x, y] = value; }
     }
 
+    public T[,] GetArr() => arr;
     public int GetLength(int dimension) => arr.GetLength(dimension);
 }

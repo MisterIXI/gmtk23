@@ -19,7 +19,7 @@ public class InputManager : MonoBehaviour
         }
         Instance = this;
         transform.SetParent(null);
-        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(transform.root.gameObject);
         _playerInput = GetComponent<PlayerInput>();
         SubscribeToInput();
     }

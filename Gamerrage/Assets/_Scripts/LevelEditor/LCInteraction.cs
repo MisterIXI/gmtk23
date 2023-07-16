@@ -162,7 +162,7 @@ public class LCInteraction : MonoBehaviour
             }
             BlockType oldType = currentBlockType;
             currentBlockType = inputTypes[inputID];
-            Debug.Log($"Type changed: {oldType}->{currentBlockType}");
+            // Debug.Log($"Type changed: {oldType}->{currentBlockType}");
             OnBlockTypeChanged?.Invoke(oldType, currentBlockType);
         }
     }
