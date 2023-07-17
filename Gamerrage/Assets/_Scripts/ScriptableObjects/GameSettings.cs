@@ -4,6 +4,7 @@ using UnityEngine;
 public class GameSettings : ScriptableObject
 {
     [field: Header("Jump settings")]
+    [field: SerializeField] public Vector2 JumpStrengthVariance { get; private set; } = new(-0.5f, 0.5f);
     [field: SerializeField] public Vector2 JumpStrengthRange { get; private set; }
     [field: SerializeField][field: Range(0.01f, 1f)] public float JumpChargeRatePerSecond { get; private set; }
     [field: SerializeField][field: Range(1, 10)] public int AutoJumpTestSteps { get; private set; }
