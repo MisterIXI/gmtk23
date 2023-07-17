@@ -11,14 +11,16 @@ public class PauseMenu : MenuBase
     public static float Volume { get; private set; }
 
     public override void Init(){
-        ResumeButton.onClick.AddListener(ToHUD);
-        RetryButton.onClick.AddListener(ToEditorMenu);
-        BackToMenuButton.onClick.AddListener(ToMainMenu);
+        ResumeButton.onClick.AddListener(OnResume);
+        RetryButton.onClick.AddListener(OnRetry);
+        BackToMenuButton.onClick.AddListener(OnBackToMenu);
         VolumeButton.onClick.AddListener(ChangeVolume);
         Volume = PlayerPrefs.GetFloat("Volume", 0.3f);
         VolumeSlider.value = Volume;
         VolumeSlider.onValueChanged.AddListener(OnVolumeChanged);
     }
+
+  
 
     private void OnVolumeChanged(float value)
     {

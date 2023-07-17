@@ -36,6 +36,35 @@ public abstract class MenuBase : MonoBehaviour
                 MenuManager.SwitchMenu(MenuState.HUD);
         }
     }
+    protected void OnResume()
+    {
+        GameManager.ChangeGameState(_prePauseState);
+        if (_prePauseState == GameState.EditingLevel)
+            MenuManager.SwitchMenu(MenuState.Editor);
+        else
+            MenuManager.SwitchMenu(MenuState.HUD);
+    }
+
+    protected void OnRetry()
+    {
+        if (_prePauseState == GameState.StreamerPlaying)
+        {
+            GameManager.ChangeGameState(GameState.StreamerPlaying);
+            GameManager.ChangeGameState(GameState.EditingLevel);
+        }
+        else if (_prePauseState == GameState.EditingLevel)
+        {
+            GameManager.ChangeGameState(GameState.EditingLevel);
+            LevelCreator.Instance.CleanUpBlocks();
+            LevelCreator.Instance.CreateData(new(25, 54));
+        }
+    }
+
+    protected void OnBackToMenu()
+    {
+        LevelCreator.Instance.CleanUpBlocks();
+        GameManager.ChangeGameState(GameState.Menu);
+    }
 
     protected void UnPause()
     {

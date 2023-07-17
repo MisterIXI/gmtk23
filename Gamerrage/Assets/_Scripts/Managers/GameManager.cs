@@ -44,6 +44,10 @@ public class GameManager : MonoBehaviour
         // unpausing
         if (oldstate == Paused)
             Time.timeScale = _prePauseTimescale;
+        if (oldstate == Paused && newState == EditingLevel)
+            MenuManager.SwitchMenu(MenuState.Editor);
+        if (oldstate == Paused && newState == StreamerPlaying)
+            MenuManager.SwitchMenu(MenuState.HUD);
         if (oldstate == EditingLevel && newState == Validating)
             MapValidator.Instance.ValidateAndMapLevelData();
         if (oldstate == Menu && newState == EditingLevel)
@@ -57,6 +61,10 @@ public class GameManager : MonoBehaviour
         if (oldstate == StreamerPlaying && newState == EditingLevel)
         {
             MenuManager.SwitchMenu(MenuState.Editor);
+        }
+        if (oldstate != Menu && newState == Menu)
+        {
+            MenuManager.SwitchMenu(MenuState.Main);
         }
         OnGameStateChange?.Invoke(oldstate, _state);
     }

@@ -20,6 +20,7 @@ public class PathFollower : MonoBehaviour
     private void Awake()
     {
         _settings = SettingsHolder.Instance.GameSettings;
+        SubscribeEvents();
     }
     private void FixedUpdate()
     {
@@ -144,6 +145,29 @@ public class PathFollower : MonoBehaviour
     {
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(_waddleTarget, 0.7f);
+    }
+    private void OnGameStateChange(GameState oldState, GameState newState)
+    {
+        if (!(newState == GameState.Paused || newState == GameState.StreamerPlaying) && Jumper != null)
+        {
+            Destroy(Jumper.gameObject);
+            _startedPlaying = false;
+            _path = null;
+        }
+    }
+    private void SubscribeEvents()
+    {
+        GameManager.OnGameStateChange += OnGameStateChange;
+    }
+
+    private void UnSubscribeEvents()
+    {
+        GameManager.OnGameStateChange -= OnGameStateChange;
+    }
+
+    private void OnDestroy()
+    {
+        UnSubscribeEvents();
     }
 }
 

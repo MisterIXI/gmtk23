@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4074908d77956f42a2f9549b036b84f, type: 3}
   m_Name: GameSettings
   m_EditorClassIdentifier: 
+  <JumpStrengthVariance>k__BackingField: {x: -0.5, y: 0.5}
   <JumpStrengthRange>k__BackingField: {x: 5, y: 20}
   <JumpChargeRatePerSecond>k__BackingField: 0.306
   <AutoJumpTestSteps>k__BackingField: 5
