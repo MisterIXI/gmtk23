@@ -9,25 +9,38 @@ public class ViewerController : MonoBehaviour
     public float viewerCounter;
     [field: SerializeField] public TextMeshProUGUI ViewerCounterLabel { get; private set; }
     // Start is called before the first frame update
-
+    private float _lastViewerTriggerTime;
+    private float _timeDelay;
     void Awake()
     {
-        StartCoroutine(Loop());
     }
     void Start()
     {
         viewerCounter = 1;
         testCounter = 0;
+        SubscribeEvents();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnGameStateChange(GameState oldState, GameState newState)
     {
+        if (newState == GameState.StreamerPlaying)
+        {
+            _lastViewerTriggerTime = Time.time;
+            _timeDelay = Random.Range(0.5f, 1.5f);
+            viewerCounter = 0;
+            ViewerCounterLabel.text = "<color=\"red\">" + (int)viewerCounter;
+        }
     }
 
     void FixedUpdate()
     {
-
+        if (Time.time > _lastViewerTriggerTime + _timeDelay)
+        {
+            _lastViewerTriggerTime = Time.time;
+            _timeDelay = Random.Range(0.5f, 1.5f);
+            viewerCounter += Random.Range(4f, 11f);
+            ViewerCounterLabel.text = "<color=\"red\">" + (int)viewerCounter;
+        }
     }
 
     public bool CheckProgress()
@@ -44,7 +57,18 @@ public class ViewerController : MonoBehaviour
     {
         return false;
     }
-
+    private void SubscribeEvents()
+    {
+        GameManager.OnGameStateChange += OnGameStateChange;
+    }
+    private void UnsubscribeEvents()
+    {
+        GameManager.OnGameStateChange -= OnGameStateChange;
+    }
+    private void OnDestroy()
+    {
+        UnsubscribeEvents();
+    }
     IEnumerator Loop()
     {
         while (true)

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: UtilitySettings
   m_EditorClassIdentifier: 
   PoolStartSize: 3
+  PathingAgentCount: 50
   NormalBlock: {fileID: -3960304078451452663, guid: 9fcb15e23ded374438f04c6fb9fcfe68,
     type: 3}
   SlantedLeft: {fileID: -5146550049856698241, guid: e766c336416dc6146ba5799adbb496fe,
